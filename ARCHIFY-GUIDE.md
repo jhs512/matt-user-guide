@@ -16,29 +16,26 @@ node --version
 npm --version
 ```
 
-### 일반 설치
+### 전체 스킬을 Codex·Claude Code에 자동 전역 설치
 
-여러 프로젝트에서 사용하려면 전역 설치합니다. 설치기에서 사용할 에이전트를 선택합니다.
-
-```powershell
-npx skills add tt-a1i/archify -g
-```
-
-### Codex에 명시적으로 설치
-
-전역 설치와 현재 프로젝트 설치 중 **하나만** 선택합니다. [Archify 공식 설치 안내](https://tt-a1i.github.io/archify/start.html)
-
-전역 설치:
+아래 명령 하나를 실행합니다. 저장소에서 발견한 **모든 스킬**을 **사용자 전역**에 설치하며, **Codex와 Claude Code 모두**에 확인 질문 없이 복사합니다. [Archify 설치 안내](https://tt-a1i.github.io/archify/start.html), [Skills CLI 옵션](https://github.com/vercel-labs/skills)
 
 ```powershell
-npx -y skills add tt-a1i/archify --skill archify --agent codex --global --copy --yes
+npx --yes skills@latest add tt-a1i/archify --global --skill "*" --agent codex claude-code --copy --yes
 ```
 
-현재 프로젝트에만 설치하려면 프로젝트 폴더에서 실행합니다.
+| 옵션 | 의미 |
+| --- | --- |
+| `npx --yes` | 패키지 실행 확인 생략 |
+| `--global` | 사용자 전역 설치, 여러 프로젝트에서 사용 |
+| `--skill "*"` | 해당 저장소에서 발견한 전체 스킬 |
+| `--agent codex claude-code` | 두 에이전트를 설치 대상으로 지정 |
+| `--copy` | 각 대상 위치에 파일 복사 |
+| 마지막 `--yes` | 설치 확인 질문 생략 |
 
-```powershell
-npx -y skills add tt-a1i/archify --skill archify --agent codex --copy --yes
-```
+Claude Code는 기본적으로 `~/.claude/skills/`에 설치됩니다. `.agents/skills` 같은 공용 위치뿐 아니라 Claude용 위치도 확인하세요. `~`는 사용자 홈 폴더이며 Windows의 기본 예시는 `C:\Users\사용자명`입니다. 별도 경로 설정이 있다면 설치기가 출력한 실제 위치를 확인합니다.
+
+> **쉬운 비유:** 스킬 세트 전체를 개인 보관함에 넣고, Codex와 Claude가 각각 사용할 위치에 복사하는 것입니다. 프로젝트를 바꿀 때마다 설치 과정을 반복하지 않아도 됩니다.
 
 ### 설치 확인과 첫 사용
 

@@ -14,14 +14,26 @@
 
 이 기능 범위와 아래 세부 동작은 **튜토리얼의 제안값**입니다. 3강의 인터뷰에서 확인하고 확정하는 흐름으로 사용합니다.
 
-```text
-방문자 화면                         관리자 화면
-┌──────────────────────────┐        ┌──────────────────────────┐
-│ 공지사항       [관리자 로그인]│     │ 공지사항 [새 공지] [로그아웃]│
-│ 서비스 점검 안내  09.06   │        │ 서비스 점검 안내 [수정][삭제]│
-│ 이용 안내         09.05   │        │ 이용 안내        [수정][삭제]│
-│         [이전] 1 [다음]   │        │         [이전] 1 [다음]   │
-└──────────────────────────┘        └──────────────────────────┘
+아래는 화면의 배치가 아니라 **역할별 화면 이동과 가능한 동작**입니다. 쓰기 권한은 서버에서도 검사합니다.
+
+```mermaid
+flowchart LR
+    subgraph visitor["방문자"]
+        list["공지 목록"] -->|"공지 선택"| detail["공지 상세"]
+        list -->|"이전·다음"| page["페이지 이동"]
+        list -->|"관리자 로그인"| login["로그인 화면"]
+    end
+    subgraph admin["인증된 관리자"]
+        manage["공지 관리"] -->|"새 공지"| create["작성 화면"]
+        manage -->|"수정"| edit["수정 화면"]
+        manage -->|"삭제"| confirm["삭제 확인"]
+        confirm -->|"승인"| deleted["삭제 후 목록 복귀"]
+        manage -->|"로그아웃"| logout["토큰 제거"]
+    end
+    login -->|"인증 성공"| manage
+    create -->|"저장 성공"| detail
+    edit -->|"저장 성공"| detail
+    logout --> list
 ```
 
 ### 기술 구성
@@ -46,18 +58,20 @@
 
 ### 목표 배포 구조
 
-```text
-브라우저
-   │ 정적 파일                     │ HTTPS API 요청
-   ▼                               ▼
-Cloudflare Pages              Railway: Kotlin/Spring
-React + shadcn/ui                   │ JPA
-                                   ▼
-                              PostgreSQL
+```mermaid
+flowchart LR
+    browser["브라우저"] -->|"정적 파일 요청"| pages["Cloudflare Pages<br/>React + shadcn/ui"]
+    browser -->|"HTTPS API 요청"| api["Railway<br/>Kotlin + Spring"]
+    api -->|"JPA · JDBC"| db[("PostgreSQL")]
+```
 
-GitHub PR ──► 백엔드 H2 테스트 + 프론트 검사 + 빌드
-GitHub main push ──► 같은 검증 ──► Railway 배포·준비 확인
-                               ──► Pages 배포 ──► 공개 URL 확인
+```mermaid
+flowchart LR
+    pr["GitHub PR"] --> checks["H2 테스트 · 프론트 검사 · 빌드"]
+    main["main push"] --> checks
+    checks -->|"통과한 main 커밋"| backend["Railway 배포 · 준비 확인"]
+    backend -->|"성공"| frontend["Pages 배포"]
+    frontend --> verify["공개 URL · 운영 동작 확인"]
 ```
 
 Pages는 **Direct Upload 프로젝트**를 만들고 Actions에서 Wrangler로 자동 배포합니다. 서비스의 Git 연동 자동 배포를 동시에 켜지 않아, 검증 전 배포되거나 같은 커밋이 중복 배포되는 일을 피합니다. [Pages Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/)
@@ -117,9 +131,9 @@ npx skills@latest add mattpocock/skills
 
 ### 사용 전 → 후
 
-```text
-전: /grill-with-docs, /to-spec을 찾을 수 없음
-후: 설치 목록에서 위 스킬들과 각 SKILL.md를 확인할 수 있음
+```mermaid
+flowchart LR
+    before["설치 전<br/>스킬을 찾을 수 없음"] -->|"스킬 설치"| after["설치 후<br/>스킬 목록과 SKILL.md 확인 가능"]
 ```
 
 **완료 확인:** 설치기가 출력한 경로와 에이전트의 스킬 목록을 확인합니다. 인식되지 않으면 설치 대상·범위를 확인하고 새 대화에서 다시 선택합니다. 아직 앱 파일은 생기지 않습니다.
@@ -169,11 +183,11 @@ notice-board/
 
 ### 사용 전 → 후
 
-```diff
-- 명세를 어디에 저장할지 매번 설명해야 함
-+ .scratch/notice-board/spec.md로 연결되는 저장 규칙이 있음
-- 도메인 문서 위치가 정해지지 않음
-+ CONTEXT.md와 docs/adr/를 읽는 규칙이 있음
+```mermaid
+flowchart LR
+    before["설정 전<br/>저장 위치와 문서 규칙 미정"] --> setup["/setup-matt-pocock-skills"]
+    setup --> tracker["명세·티켓<br/>.scratch/ 아래 저장"]
+    setup --> domain["도메인 문서<br/>CONTEXT.md · docs/adr/ 참조"]
 ```
 
 **완료 확인:** 설정 문서 세 개와 프로젝트 지침의 참조가 일치하는지 확인합니다. `CONTEXT.md` 자체는 의미 있는 용어가 정리되는 다음 강에서 생성합니다.
@@ -274,13 +288,12 @@ backend/와 frontend/를 같은 저장소에 둬.
 
 ### 사용 전 → 후
 
-```diff
-- 시큐리티 넣어줘
-+ 방문자는 조회만, 관리자는 쓰기 가능; 서버에서 권한 검사
-- 로그인 기능
-+ 30분 토큰, 메모리 보관, 새로고침 시 재로그인
-- 자동배포
-+ main 검증 통과 → API 배포 확인 → Pages 배포 → 운영 동작 확인
+```mermaid
+flowchart LR
+    vague["모호한 요구<br/>보안 · 로그인 · 자동배포"] --> interview["/grill-with-docs<br/>질문과 합의"]
+    interview --> roles["권한<br/>방문자 조회 · 관리자 쓰기<br/>서버에서 검사"]
+    interview --> auth["인증<br/>30분 토큰 · 메모리 보관<br/>새로고침 시 재로그인"]
+    interview --> deploy["배포<br/>main 검증 → API → Pages<br/>운영 동작까지 확인"]
 ```
 
 **완료 확인:** 에이전트의 최종 합의 요약을 읽고 “이 조건으로 합의했어. 문서에 반영해줘”라고 답합니다. 아직 앱 구현은 시작하지 않습니다.
@@ -373,13 +386,13 @@ H2와 PG에서 동작하는 스키마 변경을 우선 사용합니다. 차이�
 
 ### 사용 전 → 후
 
-```text
-전: 대화 + 용어집 + 설계 결정
-후: 위 자료에 연결된 spec.md
-    ├── 누가 무엇을 할 수 있는가
-    ├── 요청과 응답은 무엇인가
-    ├── 실패하면 어떻게 보이는가
-    └── 어느 검증까지 끝나야 완료인가
+```mermaid
+flowchart LR
+    context["합의된 대화 · 용어집 · ADR"] -->|"/to-spec"| spec["spec.md"]
+    spec --> roles["기능과 권한"]
+    spec --> api["요청·응답 계약"]
+    spec --> errors["실패 시 동작"]
+    spec --> done["검증과 완료 기준"]
 ```
 
 **완료 확인:** 대화의 결정과 명세를 대조합니다. H2 파일/메모리/PG의 구분, 쓰기 권한, 배포 완료 조건이 빠지지 않아야 합니다.
@@ -451,10 +464,22 @@ CI와 운영 배포도 명세 범위에 포함해.
 
 ### 사용 전 → 후
 
-```text
-전: spec.md 하나, 어디부터 구현할지 불분명
-후: 01 읽기 → 02 로그인·등록 → 03 수정·삭제 → 04 CI → 05 배포
-    각 단계에 파일·수용 기준·시연 방법이 있음
+```mermaid
+flowchart TD
+    spec["spec.md"] -->|"/to-tickets"| first["01 공개 읽기"]
+    first --> second["02 로그인·등록"]
+    second --> third["03 수정·삭제"]
+    third --> fourth["04 CI"]
+    fourth --> fifth["05 운영 배포"]
+```
+
+각 티켓에는 파일·수용 기준·시연 방법이 있으며, 화살표는 선행 티켓의 완료가 필요함을 나타냅니다.
+
+```mermaid
+flowchart LR
+    ticket["티켓"] --> criteria["수용 기준"]
+    ticket --> blockers["선행 티켓"]
+    ticket --> demo["시연 방법"]
 ```
 
 **완료 확인:** 모든 명세 조건이 티켓에 연결되어 있는지 확인합니다. 선행 관계에 순환이 없어야 하고, 배포 티켓에는 필요한 계정·변수·검증 방법까지 있어야 합니다.
@@ -538,12 +563,12 @@ notice-board/
 
 ### 결과물 B: 화면 변화
 
-```text
-01 이후: 공지 목록 → 클릭하면 상세, 페이지 이동
-02 이후: 관리자 로그인 → 작성 → 새 공지가 목록에 추가
-03 이후: 수정 → 상세 반영 / 삭제 확인 → 목록에서 제거
-04 이후: PR 화면에 테스트·타입 검사·빌드 결과
-05 이후: Pages 공개 URL에서 같은 흐름 + Railway PG에 실제 저장
+```mermaid
+flowchart TD
+    read["01 완료<br/>목록 · 상세 · 페이지 이동"] --> create["02 완료<br/>로그인 · 공지 작성 · 공개 목록 반영"]
+    create --> edit["03 완료<br/>수정 반영 · 삭제 후 목록 갱신"]
+    edit --> ci["04 완료<br/>PR에서 테스트 · 타입 검사 · 빌드 확인"]
+    ci --> deploy["05 완료<br/>Pages 공개 화면 · Railway PG 저장 확인"]
 ```
 
 ### 로컬에서 직접 확인
@@ -608,37 +633,21 @@ Railway API는 플랫폼의 `PORT`를 사용하도록 `server.port=${PORT:8080}`
 
 아래는 구현 시 생성할 `ci-cd.yml`의 **흐름 명세**입니다. 완성된 실행용 YAML로 오해하지 않도록 잡 관계로 표시합니다.
 
-```text
-pull_request / push(main)
-        │
-        ├─ backend-check
-        │    JDK 21 + Gradle Wrapper
-        │    test 프로필 H2 메모리 테스트 + bootJar
-        │
-        └─ frontend-check
-             고정 Node + npm ci
-             lint + typecheck + 화면 테스트 + build
-        │
-        ▼
-      e2e-check
-        실제 API(test/H2 메모리) + 프론트 + Playwright
-        CI 전용 관리자·서명 키 사용; 운영 자격 증명 접근 없음
-        │
-        ▼ push(main)에서만, production 환경
-      deploy-backend
-        같은 SHA의 backend를 Railway에 배포
-        배포 ID/SHA와 해당 배포의 준비 완료 확인
-        │
-        ▼ 성공한 경우만
-      deploy-frontend
-        같은 SHA의 frontend 빌드, VITE_API_BASE_URL 주입
-        Wrangler로 dist를 Pages production에 업로드
-        │
-        ▼
-      smoke-check
-        공개 UI/API, 로그인·공지 저장·수정·삭제 확인
-        각 자동/수동 검증의 증거와 미실행 항목 기록
+```mermaid
+flowchart TD
+    trigger["PR 또는 main push"] --> backend["backend-check<br/>JDK 21 · Gradle Wrapper<br/>H2 메모리 테스트 · bootJar"]
+    trigger --> frontend["frontend-check<br/>고정 Node · npm ci<br/>lint · 타입 검사 · 테스트 · 빌드"]
+    backend -->|"통과"| e2e["e2e-check<br/>실제 API + H2 메모리 + Playwright<br/>CI 전용 자격 증명"]
+    frontend -->|"통과"| e2e
+    e2e -->|"통과"| branch{"main push인가?"}
+    branch -->|"아니오"| pr["PR 검증 완료"]
+    branch -->|"예"| railway["deploy-backend<br/>같은 SHA를 Railway에 배포"]
+    railway --> ready["해당 배포 ID · SHA · 준비 상태 확인"]
+    ready -->|"성공"| pages["deploy-frontend<br/>같은 SHA 빌드 · API 주소 주입<br/>Pages production 업로드"]
+    pages -->|"성공"| smoke["smoke-check<br/>공개 UI · API · PG CRUD<br/>자동·수동 증거 구분"]
 ```
+
+검사나 배포가 실패하면 후속 배포를 진행하지 않습니다. PG CRUD에 관리자 인증이 필요하면 아래 운영 검증 절차에 따라 자동·수동 실행을 구분합니다.
 
 backend와 frontend 검증이 끝나기 전에는 배포하지 않습니다. PR에는 운영 Secret을 제공하지 않습니다. 배포는 하나의 production concurrency 그룹으로 직렬화하고 진행 중인 배포를 중간 취소하지 않도록 구성합니다. GitHub의 대기 중 실행 교체 정책에 따라 중간 커밋 배포가 생략될 수 있으며, 실제 배포된 SHA를 기록합니다.
 

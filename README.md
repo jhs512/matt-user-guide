@@ -6,7 +6,7 @@
 
 ## 시작 전 필수 설치
 
-이 튜토리얼은 **Git, GitHub CLI(`gh`), Node.js(npm·npx 포함)**가 설치되어 있어야 합니다. 게시판 백엔드 실습에는 **JDK 21**도 필요합니다.
+이 튜토리얼은 **Git, GitHub CLI(`gh`), Node.js(npm·npx 포함)**가 설치되어 있어야 합니다. 게시판 백엔드 실습에는 **JDK 25**도 필요합니다.
 
 > **학교생활 비유:** Git은 과제의 수정 이력을 남기는 공책, GitHub는 그 공책을 팀원과 공유하는 보관함, `gh`는 보관함을 명령어로 다루는 도구입니다. Node.js와 JDK는 각각 프론트 도구와 백엔드 프로그램을 실행하는 데 필요한 장비입니다. 장비를 준비한 뒤 실습을 시작하는 순서입니다.
 
@@ -15,7 +15,7 @@
 | Git | 버전 관리·커밋·푸시 | [Git 다운로드](https://git-scm.com/downloads) |
 | GitHub CLI (`gh`) | GitHub 인증·저장소·PR·Actions 확인 | [GitHub CLI 설치](https://cli.github.com/) |
 | Node.js LTS | 스킬 설치·프론트 실행·빌드 | [Node.js 다운로드](https://nodejs.org/en/download) |
-| JDK 21 | Kotlin/Spring 백엔드 실행·검증 | [Temurin 다운로드](https://adoptium.net/temurin/releases/?version=21) |
+| JDK 25 | Kotlin/Spring 백엔드 실행·검증 | [Temurin 다운로드](https://adoptium.net/temurin/releases/?version=25) |
 
 설치 후 터미널을 다시 열고 확인합니다.
 
@@ -88,7 +88,7 @@ flowchart LR
 | CI/CD | GitHub Actions: PR 검증, main 반영 후 검증·배포 |
 | 코드 구성 | 한 저장소의 `backend/`, `frontend/`; 하나의 공지 도메인 |
 
-현재 공식 문서와 Spring Initializr에서 확인한 최신 안정 Spring Boot는 **4.1.1**입니다. 실습 JDK는 **21**로 통일합니다. Kotlin·Gradle은 해당 Boot 버전을 선택한 Initializr 생성 결과를 기준으로 고정하고, JPA·Security는 Boot의 의존성 관리를 따릅니다. [Spring 요구사항](https://docs.spring.io/spring-boot/system-requirements.html), [Kotlin 지원](https://docs.spring.io/spring-boot/reference/features/kotlin.html)
+현재 공식 문서와 Spring Initializr에서 확인한 최신 안정 Spring Boot는 **4.1.1**입니다. 실습 JDK는 **25**로 통일합니다. Kotlin·Gradle은 해당 Boot 버전을 선택한 Initializr 생성 결과를 기준으로 고정하고, JPA·Security는 Boot의 의존성 관리를 따릅니다. [Spring 요구사항](https://docs.spring.io/spring-boot/system-requirements.html), [Kotlin 지원](https://docs.spring.io/spring-boot/reference/features/kotlin.html)
 
 ‘최신’은 최초 생성 시점에 확인합니다. 이후 CI에서는 고정된 플러그인 버전, Gradle Wrapper와 npm lockfile을 사용합니다. 프론트도 처음 설치할 때 호환되는 안정 버전을 선택하고 확정된 버전을 기록합니다.
 
@@ -628,7 +628,7 @@ flowchart LR
 각 티켓의 수용 기준을 검증한 뒤 다음으로 넘어가.
 
 backend/는 Spring Initializr의 최신 안정 Boot + Kotlin 조합을 확인해
-JDK 21, Gradle Kotlin DSL, MVC, JPA, Security로 생성해.
+JDK 25, Gradle Kotlin DSL, MVC, JPA, Security로 생성해.
 Spring Boot, Kotlin, Gradle 버전을 고정하고 docs/versions.md에 기록해.
 Spring용 Kotlin 플러그인, JPA 엔티티용 no-arg/open 설정도 검증해.
 local=H2 파일, test=H2 메모리, prod=PG를 명시적으로 분리해.
@@ -771,7 +771,7 @@ Railway API는 플랫폼의 `PORT`를 사용하도록 `server.port=${PORT:8080}`
 
 ```mermaid
 flowchart TD
-    trigger["PR 또는 main push"] --> backend["backend-check<br/>JDK 21 · Gradle Wrapper<br/>H2 메모리 테스트 · bootJar"]
+    trigger["PR 또는 main push"] --> backend["backend-check<br/>JDK 25 · Gradle Wrapper<br/>H2 메모리 테스트 · bootJar"]
     trigger --> frontend["frontend-check<br/>고정 Node · npm ci<br/>lint · 타입 검사 · 테스트 · 빌드"]
     backend -->|"통과"| e2e["e2e-check<br/>실제 API + H2 메모리 + Playwright<br/>CI 전용 자격 증명"]
     frontend -->|"통과"| e2e

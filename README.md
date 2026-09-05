@@ -44,7 +44,7 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 | --- | --- | --- |
 | Git | 버전 관리·커밋·푸시 | [Git 다운로드](https://git-scm.com/downloads) |
 | GitHub CLI (`gh`) | GitHub 인증·저장소·PR·Actions 확인 | [GitHub CLI 설치](https://cli.github.com/) |
-| Node.js LTS | 스킬 설치·프론트 실행·빌드 | [Node.js 다운로드](https://nodejs.org/en/download) |
+| Node.js 24 LTS | 스킬 설치·프론트 실행·빌드 | [Node.js 다운로드](https://nodejs.org/en/download) |
 | JDK 25 | Kotlin/Spring 백엔드 실행·검증 | [Temurin 다운로드](https://adoptium.net/temurin/releases/?version=25) |
 
 설치 후 터미널을 다시 열고 확인합니다.
@@ -68,7 +68,7 @@ gh auth status
 
 각 강에는 **복사용 입력 → 예상 결과물 → 사용 전후 차이 → 완료 확인**이 있습니다.
 
-> 이 문서는 실습 시나리오입니다. 파일 내용·대화·화면은 예상 예시이며, 실제 앱 구현·테스트·배포 로그가 아닙니다. 확인 기준은 2026-09-06의 공식 문서와 현재 설치된 스킬입니다. `/...`는 에이전트 대화창의 스킬 호출 표기이며 터미널 명령이 아닙니다. 사용 도구에서 해당 스킬을 선택해 호출하세요.
+> 각 강의 대화·파일·화면은 따라 해 볼 예시입니다. 실제로 빈 프로젝트에서 실행한 결과와 배포 증거는 맨 아래 「이 매뉴얼을 실제로 실행해 본 결과」에 별도로 연결했습니다. 확인 기준은 2026-09-06의 공식 문서와 현재 설치된 스킬입니다. `/...`는 에이전트 대화창의 스킬 호출 표기이며 터미널 명령이 아닙니다. 사용 도구에서 해당 스킬을 선택해 호출하세요.
 
 ## 만들 제품: 작은 공지사항 게시판
 
@@ -110,7 +110,7 @@ flowchart LR
 | DB에 데이터 저장 | Spring Data JPA, Hibernate, Flyway |
 | 로그인과 사용 권한 확인 | Spring Security, 관리자 로그인, 쓰기 API 권한 검사 |
 | 로컬 DB | H2 파일 DB: 서버 재시작 후에도 개발 데이터 유지 |
-| 테스트 DB | H2 인메모리: 테스트마다 데이터 격리 |
+| 테스트 DB | H2 인메모리: 디스크에 저장하지 않는 테스트 DB. 테스트 사이의 데이터 정리는 별도로 구현 |
 | 운영 DB | Railway PostgreSQL |
 | 프론트 | Vite + React + TypeScript + shadcn/ui + Tailwind CSS |
 | 백엔드 배포 | Railway API 서비스 |
@@ -195,7 +195,7 @@ gh --version
 ```powershell
 mkdir notice-board
 cd notice-board
-git init
+git init -b main
 ```
 
 ### 설치: 터미널 입력
@@ -226,7 +226,7 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 | `grilling`, `domain-modeling` | 인터뷰, 용어집과 설계 결정 기록 |
 | `to-spec`, `to-tickets` | 명세 작성, 구현 단위 분해 |
 | `implement`, `tdd`, `code-review` | 구현, 검증, 리뷰 |
-| `triage` | 이번 실습의 기본 분류 라벨 |
+| `triage` | 들어온 요청을 분류하고 부족한 정보를 확인 |
 | `ask-matt` | 현재 상황에 맞는 다음 스킬·진행 순서 추천 |
 
 `grill-with-docs`는 설치된 원문에서 `grilling`과 `domain-modeling`을 함께 호출합니다. 세 스킬이 모두 설치되어 있는지 확인합니다.
@@ -654,7 +654,7 @@ HTTP/H2, 화면, H2 E2E, 운영 PG 검증의 범위를 구분한다.
 
 목록의 API 페이지 번호는 0부터, 화면 표시는 1부터 시작합니다. `page < 0`은 400, 범위를 초과한 페이지는 빈 items와 전체 개수를 반환합니다. 날짜는 UTC ISO 8601로 전달하고 화면에서 사용자 시간대로 표시합니다.
 
-### 결과물 C: 환경별 DB 계약
+### 결과물 C: 환경마다 사용할 DB와 지켜야 할 규칙
 
 | 환경 | 프로필 | DB 예시 | DB의 표와 항목을 만들고 바꾸는 방법 |
 | --- | --- | --- | --- |
@@ -783,7 +783,7 @@ flowchart LR
 ```text
 /implement
 
-.scratch/notice-board/spec.md와 issues/의 모든 티켓을 구현해줘.
+.scratch/notice-board/spec.md와 .scratch/notice-board/issues/의 모든 티켓을 구현해줘.
 01 → 02 → 03 → 04 → 05 순서로 진행하고,
 각 티켓의 완료됐다고 판단할 조건을 검증한 뒤 다음으로 넘어가.
 
@@ -916,27 +916,34 @@ flowchart TD
 
 ### 로컬에서 직접 확인
 
-백엔드 폴더의 PowerShell 터미널:
+6강 구현 요청에는 다음 조건도 포함합니다. **로컬 전용 관리자 설정·JWT 키·CORS를 넣고 백엔드를 시작하는 `scripts/run-local.ps1`을 만들고, 로컬 로그인 정보를 실행 안내에 적어줘. 운영에서는 별도 비밀번호와 키를 사용해.**
+
+게시판 저장소 루트의 PowerShell 터미널에서, 생성된 스크립트를 실행합니다:
 
 ```powershell
-.\gradlew.bat bootRun --args='--spring.profiles.active=local'
+./scripts/run-local.ps1
 ```
 
-프론트 폴더의 다른 터미널:
+실행 저장소의 [run-local.ps1](https://github.com/jhs512/2nd-matt-user-guide/blob/main/scripts/run-local.ps1)이 실제 작동하는 예입니다. 이 예제의 로컬 계정은 `admin` / `local-demo-password`입니다. 운영 계정과는 다릅니다.
+
+게시판 저장소 루트에서 다른 터미널을 열어 프론트를 실행합니다:
 
 ```powershell
+cd frontend
 npm ci
 npm run dev
 ```
 
-개발용 관리자 아이디·비밀번호와 API 주소는 구현 시 생성한 `.env.example`·배포 문서에 따라 설정합니다. 실제 비밀번호를 저장소에 커밋하지 않습니다.
+Spring Boot는 `.env` 파일을 만들었다고 자동으로 읽지 않습니다. 위 스크립트처럼 실행 프로세스에 환경변수를 전달해야 합니다. 실제 비밀번호를 저장소에 커밋하지 않습니다.
+
+> **쉬운 비유:** 설정 파일은 준비물 목록이고, 환경변수를 전달하는 것은 준비물을 실제 가방에 넣는 일입니다. 목록만 써 놓으면 프로그램이 사용할 수 없습니다.
 
 | 직접 조작 | 확인할 결과 |
 | --- | --- |
 | 로그아웃 상태에서 목록·상세 열기 | 공개 조회 가능, 작성 버튼 없음 |
 | 인증 없이 쓰기 API 호출 | 401; 버튼을 숨기는 것과 별개로 서버에서 차단 |
 | 관리자 로그인 후 작성 | 상세로 이동, 목록에도 새 공지 표시 |
-| 잘못된 제목 제출 | 필드 오류 표시, DB에 등록되지 않음 |
+| 잘못된 제목 제출 | 오류 안내 표시, DB에 등록되지 않음 |
 | 수정 후 새로고침 | 수정 결과 유지, 로그인은 해제 |
 | 다시 로그인하여 삭제 | 확인 후 삭제, 상세 재조회 404 |
 | 로컬 백엔드 재시작 | H2 파일의 공지 유지 |
@@ -946,6 +953,21 @@ npm run dev
 CI는 변경할 때마다 테스트와 빌드를 자동 확인하는 과정입니다. 이 실습의 CD는 통과한 변경을 실제 서비스에 배포하는 과정입니다. PR은 변경을 합치기 전에 검토하는 요청이고, main은 여기서 운영 배포의 기준으로 삼은 브랜치입니다.
 
 > **학교 방송 비유:** 방송 원고를 고친 뒤 맞춤법·분량·소리를 점검하는 것이 CI, 확인된 원고를 실제 교내 방송에 내보내는 것이 CD입니다. 점검 중인 원고와 실제 방송 원고가 같아야 합니다. 커밋 SHA는 ‘몇 번째 수정본인가’를 정확히 구분하는 꼬리표입니다.
+
+### GitHub에 실습 저장소 올리기
+
+게시판 저장소 루트에서 실행합니다. 먼저 `.gitignore`에 `.env`, 로컬 DB 파일, `node_modules/`, 빌드 결과가 제외되어 있는지 확인합니다. `git status`에서 올릴 파일을 확인한 뒤 진행합니다.
+
+```powershell
+git status
+git remote -v
+git add .
+git commit -m "feat: implement notice board"
+gh repo create notice-board --public --source=. --remote=origin
+git push -u origin main
+```
+
+위 예시는 **아직 GitHub 저장소와 origin이 없을 때**입니다. 이미 연결했다면 `gh repo create`를 다시 실행하지 않고 커밋과 push만 합니다. 아직 변경이 없다면 커밋도 생략합니다. 저장소 이름은 본인이 사용할 이름으로 바꿉니다.
 
 ### 최초 한 번 준비할 것
 
@@ -1022,7 +1044,9 @@ railway login --browserless
 
 #### 5. Railway 프로젝트와 API 서비스 연결
 
-Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. **로그인 성공과 새 서비스 생성 가능 여부는 별개입니다.** 실제 실습에서는 `railway init --name 2nd-matt-user-guide --json`이 `Free plan resource provision limit exceeded`로 거절됐습니다. 이런 경우 요금제·리소스 한도를 먼저 확인하고, 기존 서비스를 임의로 지우거나 결제 설정을 바꾸지 않습니다. 코드·로컬 검사·CI는 계속 진행하되 운영 배포 티켓은 완료로 표시하지 않습니다. 그 뒤 **게시판 저장소 루트**에서 실행합니다.
+Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. **로그인 성공과 새 서비스 생성 가능 여부는 별개입니다.** 실제 실습에서는 `railway init --name 2nd-matt-user-guide --json`이 `Free plan resource provision limit exceeded`로 거절됐습니다. 이런 경우 요금제·리소스 한도를 먼저 확인하고, 기존 서비스를 임의로 지우거나 결제 설정을 바꾸지 않습니다. 코드·로컬 검사·CI는 계속 진행하되 운영 배포 티켓은 완료로 표시하지 않습니다. 실제 실습은 이후 사용자가 Hobby로 업그레이드해 생성과 배포에 성공했습니다. 카드 등록 화면을 마친 것과 요금제 변경 완료를 구분해 대시보드에서 확인합니다. [요금제 안내](https://docs.railway.com/pricing/plans)
+
+그 뒤 **게시판 저장소 루트**에서 실행합니다.
 
 ```powershell
 railway link
@@ -1039,14 +1063,19 @@ Railway 소스 루트는 Dockerfile 위치에 맞춥니다. `backend/Dockerfile`
 
 | 실행 장소 | Cloudflare | Railway |
 | --- | --- | --- |
-| 내 PC | `wrangler login`으로 로그인 | `railway login`으로 로그인 |
+| 브라우저 대시보드 | 웹 계정 로그인, 토큰·계정 설정 | 웹 계정 로그인, 요금제·프로젝트 설정 |
+| 내 PC CLI | `wrangler login`으로 로그인 | `railway login`으로 로그인 |
 | GitHub Actions | `CLOUDFLARE_API_TOKEN`과 계정 ID | 프로젝트 범위 `RAILWAY_TOKEN` |
 
-내 PC에서 로그인했어도 GitHub Actions의 실행 컴퓨터에는 그 로그인이 전달되지 않습니다. Actions에서 브라우저 로그인 명령을 실행하지 말고 토큰을 사용합니다.
+브라우저, 내 PC CLI, GitHub Actions의 인증은 따로 확인합니다. CLI가 로그인되어 있어도 브라우저에서 다시 로그인할 수 있습니다. 내 PC에서 로그인했어도 GitHub Actions의 실행 컴퓨터에는 그 로그인이 전달되지 않습니다. Actions에서 브라우저 로그인 명령을 실행하지 말고 토큰을 사용합니다.
 
 Cloudflare에서는 해당 계정의 **Cloudflare Pages 편집 권한**을 가진 API 토큰을 만들고, Railway에서는 배포 대상 프로젝트·환경의 토큰을 만듭니다. GitHub 저장소의 **Settings → Secrets and variables → Actions**에서 등록합니다. production 환경 Secret을 사용한다면 **Settings → Environments → production**에 등록하고 배포 job이 그 환경을 참조하게 합니다.
 
-GitHub CLI로 production 환경 Secret을 입력할 수도 있습니다. 값을 명령어에 직접 넣지 않고 입력 요청에 붙여 넣습니다.
+Railway는 **해당 프로젝트의 Settings → Tokens**에서 `production` 환경을 선택해 토큰을 만듭니다. 실제 실행에서는 CLI의 토큰 생성 요청이 `Not Authorized`였지만 이 화면에서는 생성할 수 있었습니다. [Railway 토큰 안내](https://docs.railway.com/integrations/api)
+
+Cloudflare는 API Tokens에서 사용자 지정 토큰을 만들고 **Account → Cloudflare Pages → Edit** 권한과 배포할 계정 범위를 지정합니다. [Cloudflare CI 인증 안내](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
+
+GitHub에 `production` 환경을 먼저 만든 뒤 GitHub CLI로 production 환경 Secret을 입력할 수도 있습니다. 값을 명령어에 직접 넣지 않고 입력 요청에 붙여 넣습니다.
 
 ```powershell
 gh secret set CLOUDFLARE_API_TOKEN --env production
@@ -1121,11 +1150,12 @@ Railway API는 플랫폼의 `PORT`를 사용하도록 `server.port=${PORT:8080}`
 | --- | --- | --- |
 | GitHub Secret | RAILWAY_TOKEN | 프로젝트·환경 범위의 배포 토큰 |
 | GitHub Secret | CLOUDFLARE_API_TOKEN | 해당 계정 Pages 편집 권한 |
+| GitHub Variable | DEPLOY_ENABLED, PAGES_DEPLOY_ENABLED | 실행 예제에서 각각 Railway 배포와 Pages 업로드를 켜는 값 |
 | GitHub Variable | RAILWAY_SERVICE_ID | 배포할 API 서비스 |
 | GitHub Variable | CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_PAGES_PROJECT | Pages 배포 대상 |
 | GitHub Variable | VITE_API_BASE_URL | Railway의 공개 API URL, 프론트 빌드에 주입 |
 | Railway Variable | SPRING_PROFILES_ACTIVE=prod | 운영 프로필 |
-| Railway Variable | SPRING_DATASOURCE_URL / USERNAME / PASSWORD | PG 연결, Railway 변수 참조 사용 |
+| Railway Variable | SPRING_DATASOURCE_URL / SPRING_DATASOURCE_USERNAME / SPRING_DATASOURCE_PASSWORD | PG 연결, Railway 변수 참조 사용 |
 | Railway Variable | ADMIN_USERNAME, ADMIN_PASSWORD_HASH | 관리자 검증 정보 |
 | Railway Variable | JWT_SECRET | 운영 서명 키, 코드 기본값 없이 설정 |
 | Railway Variable | CORS_ALLOWED_ORIGINS | 실제 Pages production Origin |
@@ -1134,9 +1164,21 @@ Railway API는 플랫폼의 `PORT`를 사용하도록 `server.port=${PORT:8080}`
 
 > **안내문 비유:** 환경변수는 학교별로 바뀌는 교무실 전화번호처럼 프로그램 바깥에서 넣는 설정입니다. 프론트 빌드에 넣은 `VITE_` 값은 학생에게 나눠준 안내문에 인쇄된 내용처럼 공개됩니다. 교무실 위치는 써도 되지만 열쇠 보관함 비밀번호를 인쇄하면 안 됩니다. 인쇄한 뒤 번호를 바꾸려면 안내문도 다시 만들어야 합니다.
 
+실행 예제의 두 배포 스위치는 Railway나 Cloudflare의 기본 기능이 아니라 **이 프로젝트의 workflow에서 정한 조건**입니다. 전체 자동배포를 하려면 필요한 토큰을 등록하고 둘 다 `true`로 설정합니다. `PAGES_DEPLOY_ENABLED=false`이면 Pages 업로드는 건너뜁니다. Actions가 초록색이어도 각 배포 단계가 `Skipped`인지 확인해야 합니다.
+
+PostgreSQL 서비스 이름이 `Postgres`라면 **API 서비스**에 다음 값을 넣습니다. 서비스 이름이 다르면 참조 이름도 바꿉니다. [Railway 변수 참조](https://docs.railway.com/variables)
+
+| API 서비스 변수 | 값 |
+| --- | --- |
+| SPRING_DATASOURCE_URL | `jdbc:postgresql://${{Postgres.PGHOST}}:${{Postgres.PGPORT}}/${{Postgres.PGDATABASE}}` |
+| SPRING_DATASOURCE_USERNAME | `${{Postgres.PGUSER}}` |
+| SPRING_DATASOURCE_PASSWORD | `${{Postgres.PGPASSWORD}}` |
+| PORT | `8080` — 공개 도메인의 대상 포트도 맞춤 |
+| CORS_ALLOWED_ORIGINS | 실제 Pages 주소의 Origin. 예: `https://notice-board.pages.dev` — 경로·마지막 `/` 제외 |
+
 ### 자동 검사와 배포가 따라야 할 순서
 
-아래는 구현 시 생성할 `ci-cd.yml`의 **실행 순서를 설명한 문서**입니다. 완성된 실행용 YAML로 오해하지 않도록 자동 실행 작업의 앞뒤 순서로 표시합니다.
+아래는 구현 시 생성할 `ci-cd.yml`의 **실행 순서를 설명한 문서**입니다. 그림의 상자는 단계이며, 반드시 각각 별도 job이라는 뜻은 아닙니다. 실제 실행용 파일은 [verify.yml](https://github.com/jhs512/2nd-matt-user-guide/blob/main/.github/workflows/verify.yml)입니다.
 
 ```mermaid
 flowchart TD
@@ -1144,7 +1186,8 @@ flowchart TD
     trigger --> frontend["frontend-check<br/>고정 Node · npm ci<br/>lint · 타입 검사 · 테스트 · 빌드"]
     backend -->|"통과"| e2e["e2e-check<br/>실제 API + H2 메모리 + Playwright<br/>CI에서만 쓰는 로그인 정보"]
     frontend -->|"통과"| e2e
-    e2e -->|"통과"| branch{"main push인가?"}
+    e2e -->|"통과"| pg["별도 PostgreSQL 테스트 DB<br/>작성 · 조회 · 수정 · 삭제 확인"]
+    pg -->|"통과"| branch{"main push인가?"}
     branch -->|"아니오"| pr["PR 검증 완료"]
     branch -->|"예"| railway["deploy-backend<br/>같은 SHA를 Railway에 배포"]
     railway --> ready["해당 배포 ID · SHA · 준비 상태 확인"]
@@ -1160,7 +1203,7 @@ Railway 배포 명령과 인증은 [Railway CLI](https://docs.railway.com/cli), 
 
 Railway는 DB 연결까지 확인하는 health endpoint를 배포 준비 조건에 연결하고 세부 정보는 노출하지 않습니다. 기존 버전의 health 200을 새 버전 성공으로 착각하지 않도록 **이번 배포 ID·커밋**과 함께 확인합니다. [Railway healthchecks](https://docs.railway.com/deployments/healthchecks)
 
-Pages 업로드의 핵심 명령은 다음 형태입니다. `frontend/`에서 실행하며, 프로젝트 값과 인증 환경변수는 Actions가 제공합니다. CLI 버전은 구현 시 고정합니다. [Pages CI 안내](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
+Pages 업로드의 핵심 명령은 다음 형태입니다. **GitHub Actions의 Ubuntu Bash**에서 `frontend/`를 작업 폴더로 실행하며, 프로젝트 값과 인증 환경변수는 Actions가 제공합니다. Windows PowerShell에 그대로 붙여 넣는 명령이 아닙니다. CLI 버전은 구현 시 고정합니다. [Pages CI 안내](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
 
 ```bash
 npx wrangler pages deploy dist --project-name="$CLOUDFLARE_PAGES_PROJECT" --branch=main
@@ -1169,6 +1212,21 @@ npx wrangler pages deploy dist --project-name="$CLOUDFLARE_PAGES_PROJECT" --bran
 외부 서비스 자체의 Git 자동배포는 끄고 위 Actions 순서로 통일합니다. 백엔드와 프론트가 반드시 함께 새 버전으로 바뀌는 것은 아닙니다. 백엔드만 성공하고 프론트 배포가 실패할 수도 있습니다. 따라서 새 백엔드도 기존 프론트의 요청을 처리할 수 있게 만들어두고, 실패한 프론트 배포를 다시 진행합니다. DB를 바꿀 때도 기존 앱이 계속 읽고 쓸 수 있는 변경부터 적용합니다. 이미 지운 데이터나 DB 항목이 배포 취소만으로 자동 복구된다고 생각하면 안 됩니다.
 
 > **학교 방송 비유:** 방송실 장비와 교실 스피커를 따로 교체하면 둘 중 하나만 새것이 될 수 있습니다. 그래서 새 장비가 기존 스피커와도 연결되게 준비합니다. 이것이 여기서 말하는 호환성입니다. ‘두 곳 모두 동시에 바뀌거나 아무것도 안 바뀜’이 보장되지 않으므로 어느 곳이 성공했는지 따로 확인합니다. health 확인도 전원이 켜졌다는 것뿐 아니라 실제 필요한 연결이 준비됐는지 보는 점검입니다.
+
+### 실습에서 실제로 막혔던 곳
+
+| 증상 | 먼저 확인할 것 |
+| --- | --- |
+| Spring Boot가 설정 누락으로 시작하지 않음 | `.env` 존재 여부만 보지 말고 실행 프로세스에 관리자 설정·JWT 키를 전달했는지 확인 |
+| 로컬은 되는데 공개 화면에서 API 요청 실패 | `VITE_API_BASE_URL`을 넣고 다시 빌드했는지, API CORS에 실제 Pages Origin이 있는지 확인 |
+| Railway 로그인은 되지만 프로젝트 생성 실패 | 오류의 요금제·리소스 한도 확인. 실제 실행에서는 Hobby 업그레이드 후 해결 |
+| Actions 성공인데 Pages가 갱신되지 않음 | Pages 업로드 단계가 `Skipped`인지, 토큰과 `PAGES_DEPLOY_ENABLED`를 준비했는지 확인 |
+| CI의 PostgreSQL 시작에서 `unknown -U` 오류 | 서비스의 `--health-cmd` 인수를 큰따옴표로 묶기. 실제 실패했던 작은따옴표를 그대로 복사하지 않기 |
+| 브라우저 테스트에서 Chromium을 찾지 못함 | 테스트 전에 `npx playwright install --with-deps chromium` 실행. 이 설치 옵션은 Ubuntu CI 기준 |
+
+H2를 메모리로 실행해도 테스트마다 데이터가 저절로 지워지는 것은 아닙니다. 테스트를 마치면 데이터를 지우거나 테스트별로 DB를 분리합니다. 이번 실행의 CI 브라우저 테스트도 파일 DB에서 H2 메모리 DB로 맞추고 다시 검증했습니다.
+
+> **쉬운 비유:** 메모리 DB는 임시 칠판입니다. 교실 문을 닫으면 사라지는 칠판이라도, 다음 문제가 시작되기 전에 앞 문제의 낙서는 직접 지워야 합니다.
 
 ### H2 테스트와 PG 운영 확인은 서로 다른 결과물
 
@@ -1282,7 +1340,7 @@ npx wrangler pages deploy dist --project-name="$CLOUDFLARE_PAGES_PROJECT" --bran
 
 ```text
 /ask-matt 나 이제 뭐해야 해?
-.scratch/notice-board/spec.md와 issues/의 티켓을 작성했어.
+.scratch/notice-board/spec.md와 .scratch/notice-board/issues/의 티켓을 작성했어.
 아직 구현한 티켓은 없어.
 ```
 
@@ -1314,8 +1372,6 @@ flowchart TD
 **워크플로우는 상황에 맞춰 스킬을 이어 쓰는 순서**입니다. 열 가지를 모두 해야 하는 숙제가 아닙니다. 지금 겪는 상황과 가장 비슷한 하나를 골라 시작하세요.
 
 > **학교생활 비유:** 체육복을 잃어버렸을 때는 ‘마지막으로 본 곳 확인 → 분실물함 확인’을 하고, 축제를 준비할 때는 ‘회의 → 준비물 정리 → 역할 분담’을 합니다. 둘 다 순서가 있지만 목적이 다르듯, 개발도 항상 같은 긴 절차가 필요한 것은 아닙니다.
-
-### 읽는 방법과 공통 준비
 
 ### 잠깐: 컨텍스트와 용량은 무엇인가요?
 
@@ -1723,6 +1779,17 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 
 [2nd-matt-user-guide 공개 저장소](https://github.com/jhs512/2nd-matt-user-guide)에 빈 프로젝트부터 수행한 코드, 결정 문서, 티켓, 테스트와 실제 화면을 남겼습니다. [실행 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/execution-log.md)에서 실패한 단계와 수정 이유를 확인할 수 있습니다.
 
-Spring Boot 4.1.1, Kotlin 2.3.21, Gradle 9.7.1, JDK25로 실행했습니다. 기존 Vite에 shadcn을 추가하는 설정, 실제 브라우저 CORS 확인, 시간 정밀도, 배포 한도 확인을 이 문서에 보강했습니다. **로컬 H2·브라우저·로컬 PostgreSQL 검증과 운영 배포를 구분합니다. Railway 운영 배포는 요금제 리소스 한도로 아직 완료되지 않았습니다.**
+Spring Boot 4.1.1, Kotlin 2.3.21, Gradle 9.7.1, JDK 25로 실행했습니다. 버전은 이번 실행의 기록이며 앞으로도 항상 최신이라는 뜻은 아닙니다.
 
-실행 프로젝트의 [GitHub Actions 검사](https://github.com/jhs512/2nd-matt-user-guide/actions/runs/33978349671)는 H2 HTTP·프론트 화면·실제 Chromium·PostgreSQL CRUD까지 통과했습니다. 운영 배포 job은 설정 미비로 건너뛰었습니다. 검사 성공을 운영 배포 성공으로 읽지 않습니다.
+| 확인 대상 | 실제 결과 |
+| --- | --- |
+| 로컬 실행과 자동 검사 | H2 HTTP 테스트, 프론트 검사, Chromium 브라우저 테스트, 별도 PostgreSQL CRUD 통과 |
+| Railway API와 운영 DB | Hobby 업그레이드 후 배포 성공. 실제 운영 DB는 Railway 템플릿의 PostgreSQL 18 |
+| Railway 자동배포 | GitHub Actions에서 배포 후 실행 중인 API의 커밋 번호와 health 확인 |
+| Cloudflare Pages 공개 배포 | 로컬 Wrangler CLI로 업로드 완료 |
+| 공개 서비스 동작 | 브라우저에서 로그인·작성·수정·삭제와 새로고침 후 로그아웃 확인 |
+| Pages 자동배포 | **아직 미완료.** Actions용 Cloudflare API 토큰 등록과 배포 스위치 활성화 필요 |
+
+[실제 게시판 열기](https://2nd-matt-user-guide.pages.dev/) · [Railway 자동배포 성공 기록](https://github.com/jhs512/2nd-matt-user-guide/actions/runs/33979027438) · [운영 상태와 증거](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/production-status.md)
+
+> **쉬운 비유:** 내가 직접 택배를 한 번 보낸 것은 최초 배포이고, 새 물건이 생길 때마다 자동으로 보내는 장치를 완성한 것이 자동배포입니다. 사이트가 열린다는 것만으로 자동배포까지 끝난 것은 아닙니다.

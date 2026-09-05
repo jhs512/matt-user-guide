@@ -818,7 +818,60 @@ Railway 준비 완료와 배포 커밋을 확인한 다음 Pages 배포를 진�
 실행하지 않은 테스트나 배포를 완료로 보고하지 마.
 ```
 
-생성 순서의 기준은 [Spring Initializr](https://start.spring.io/)와 [shadcn/ui Vite 안내](https://ui.shadcn.com/docs/installation/vite)입니다. 프론트는 비어 있는 `frontend/`에서 `npx shadcn@latest init -t vite`를 사용하는 방식을 선택할 수 있습니다. Vite를 먼저 생성했다면 기존 프로젝트 설치 절차를 따릅니다.
+생성 순서의 기준은 [Spring Initializr](https://start.spring.io/)와 [shadcn/ui Vite 안내](https://ui.shadcn.com/docs/installation/vite)입니다. **Vite를 먼저 만든 경우 shadcn 명령만 바로 실행하면 설치가 끝나지 않습니다.** 실제 빈 프로젝트에서 경로 별칭이 없다는 오류를 확인했습니다. 다음 순서로 준비합니다.
+
+```powershell
+# 저장소 루트에서 실행
+npm create vite@latest frontend -- --template react-ts
+cd frontend
+npm install
+npm install -D tailwindcss @tailwindcss/vite
+```
+
+`frontend/vite.config.ts`에 React·Tailwind 플러그인과 `@` 경로를 설정합니다.
+
+```typescript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { fileURLToPath, URL } from 'node:url'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
+  },
+})
+```
+
+`frontend/tsconfig.json`과 `frontend/tsconfig.app.json`의 `compilerOptions`에 아래 항목을 **기존 내용을 유지하면서 추가**합니다. 첫 파일에 compilerOptions가 없다면 추가합니다.
+
+```json
+"paths": { "@/*": ["./src/*"] }
+```
+
+`frontend/src/index.css`에 `@import "tailwindcss";`를 넣고 **frontend 폴더 안에서** 실행합니다.
+
+```powershell
+npx --yes shadcn@latest init --base radix --preset nova --yes --no-monorepo
+npx --yes shadcn@latest add button input textarea card --yes
+npm run build
+```
+
+실행 확인 버전은 shadcn CLI 4.21.0입니다. `--preset radix-nova`가 아니라 `--base radix --preset nova`입니다. 설치 뒤에는 package-lock.json을 커밋하고 이후 `npm ci`를 사용합니다.
+
+> **쉬운 비유:** `@`는 “우리 학교”처럼 짧게 부르는 주소입니다. Vite와 TypeScript 양쪽에 같은 주소를 알려줘야 버튼 파일을 가져올 때 서로 다른 건물을 찾지 않습니다.
+
+### 실제 실행에서 추가로 확인한 주의점
+
+- Spring은 `.env` 파일을 만들었다고 자동으로 읽지 않습니다. PowerShell의 `$env:이름='값'` 또는 실행 환경 설정으로 전달합니다. [실행 프로젝트의 로컬 스크립트](https://github.com/jhs512/2nd-matt-user-guide/blob/main/scripts/run-local.ps1)를 그대로 확인할 수 있습니다. 공개된 실습 계정은 운영에 재사용하지 않습니다.
+- Spring Security가 오류 처리 경로까지 막으면 원래의 400·404가 인증 오류로 바뀔 수 있습니다. `DispatcherType.ERROR` 처리와 실제 오류 응답을 테스트합니다. 외부의 모든 URL을 허용하라는 뜻은 아닙니다.
+- CORS 설정 파일만 있어서는 충분하지 않습니다. 실제 `SecurityFilterChain`에 `cors { it.configurationSource(...) }`로 연결됐는지 확인하고 브라우저에서 로그인해 봅니다. 터미널 API 호출 성공만으로 CORS 성공을 판단하지 않습니다.
+- H2·PostgreSQL은 시간의 세밀한 자릿수를 저장하면서 바꿀 수 있습니다. 생성 시간을 저장 전에 microseconds 단위로 맞추고, 등록 응답과 다시 조회한 결과가 같은지 검사합니다.
+- 로그인 토큰이 만료돼도 공개 공지를 읽을 수 있어야 합니다. 공개 GET 요청에는 관리자 토큰을 보내지 않습니다.
+- Playwright 패키지와 브라우저 설치는 별개입니다. 로컬은 `npx playwright install chromium`, Linux CI는 `npx playwright install --with-deps chromium`으로 브라우저도 준비합니다.
+
+> **쉬운 비유:** 터미널 API 검사는 창고에서 제품이 나오는지 확인하는 일이고, 브라우저 검사는 손님 집까지 배송되는지 확인하는 일입니다. 창고 출고에 성공해도 출입문에서 막힐 수 있어 둘 다 확인합니다.
 
 ### 결과물 A: 프로젝트 트리 예시
 
@@ -969,7 +1022,7 @@ railway login --browserless
 
 #### 5. Railway 프로젝트와 API 서비스 연결
 
-Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. 그 뒤 **게시판 저장소 루트**에서 실행합니다.
+Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. **로그인 성공과 새 서비스 생성 가능 여부는 별개입니다.** 실제 실습에서는 `railway init --name 2nd-matt-user-guide --json`이 `Free plan resource provision limit exceeded`로 거절됐습니다. 이런 경우 요금제·리소스 한도를 먼저 확인하고, 기존 서비스를 임의로 지우거나 결제 설정을 바꾸지 않습니다. 코드·로컬 검사·CI는 계속 진행하되 운영 배포 티켓은 완료로 표시하지 않습니다. 그 뒤 **게시판 저장소 루트**에서 실행합니다.
 
 ```powershell
 railway link
@@ -978,7 +1031,7 @@ railway status
 
 선택 화면에서 정확한 프로젝트·환경·API 서비스를 고릅니다. CLI 버전에 따라 서비스 선택이 별도라면 `railway service`로 API 서비스를 선택합니다. `railway status`로 연결 대상을 다시 확인합니다. **PostgreSQL 서비스가 아니라 API 서비스에 백엔드 코드를 배포합니다.** [프로젝트 연결 안내](https://docs.railway.com/cli/link)
 
-이 문서에서는 저장소 루트를 연결하고 API 서비스의 소스 루트를 `backend/`로 구성합니다. 실제 업로드 위치와 Railway의 Root Directory·Dockerfile 경로가 같은 기준을 사용하는지 확인합니다. 같은 `backend/` 경로를 이중으로 적용하지 않습니다.
+Railway 소스 루트는 Dockerfile 위치에 맞춥니다. `backend/Dockerfile`에서 백엔드만 복사하면 Root Directory는 `backend/`입니다. 실제 실행 저장소처럼 **루트 Dockerfile이 `COPY backend/ .`를 사용한다면 Root Directory도 저장소 루트**여야 합니다. 두 방식을 섞어서 `backend/` 경로를 두 번 적용하지 않습니다.
 
 > **학교생활 비유:** 같은 학교에도 방송실과 도서관이 있습니다. 내 계정으로 들어갔더라도 ‘방송실 장비에 보낼 파일’을 도서관 장비에 보내면 안 됩니다. `whoami`는 사람 확인, `status`는 작업 대상 확인입니다.
 
@@ -1664,3 +1717,10 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 방금 말한 '테스트에서 입력과 결과를 확인할 위치'와 '먼저 끝내야 할 티켓'을
 공지사항 게시판의 실제 예와 학교생활 비유로 다시 설명해줘.
 ```
+
+
+## 이 매뉴얼을 실제로 실행해 본 결과
+
+[2nd-matt-user-guide 공개 저장소](https://github.com/jhs512/2nd-matt-user-guide)에 빈 프로젝트부터 수행한 코드, 결정 문서, 티켓, 테스트와 실제 화면을 남겼습니다. [실행 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/execution-log.md)에서 실패한 단계와 수정 이유를 확인할 수 있습니다.
+
+Spring Boot 4.1.1, Kotlin 2.3.21, Gradle 9.7.1, JDK25로 실행했습니다. 기존 Vite에 shadcn을 추가하는 설정, 실제 브라우저 CORS 확인, 시간 정밀도, 배포 한도 확인을 이 문서에 보강했습니다. **로컬 H2·브라우저·로컬 PostgreSQL 검증과 운영 배포를 구분합니다. Railway 운영 배포는 요금제 리소스 한도로 아직 완료되지 않았습니다.**

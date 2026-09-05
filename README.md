@@ -433,7 +433,7 @@ flowchart LR
 프론트는 Cloudflare Pages로 배포하고 GitHub Actions가 CI/CD를 담당해.
 backend/와 frontend/를 같은 저장소에 둬.
 
-아직 구현하지 말고 권한, 인증 유지, 입력 제한, 오류,
+권한, 인증 유지, 입력 제한, 오류,
 목록을 여러 페이지로 나누고 이동하는 방법, DB 전환, 자동배포 완료 기준을 질문해서 구체적으로 정해줘.
 확정된 도메인 용어는 CONTEXT.md에 기록하고,
 대안과 비용이 있는 중요한 결정만 ADR로 제안해줘.

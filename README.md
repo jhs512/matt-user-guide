@@ -246,7 +246,7 @@ flowchart LR
 
 **실제 결과 보기 · [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001):** 작업 규칙이 없는 상태에서 [AGENTS.md](https://github.com/jhs512/2nd-matt-user-guide/blob/001/AGENTS.md)와 [에이전트용 안내 문서](https://github.com/jhs512/2nd-matt-user-guide/tree/001/docs/agents)가 생겼습니다. 무엇을 먼저 읽고 어디에 작업을 기록할지 확인해 보세요.
 
-첫 커밋 `001`에는 2강부터 5강까지의 문서가 함께 저장되어 있습니다. 스킬 하나마다 따로 커밋된 기록은 아니므로, 각 강에서는 그 강에 해당하는 파일을 연결합니다.
+각 태그는 수업별 결과입니다. `001`에서는 하네스 설정 파일만 확인할 수 있습니다.
 
 **새 프로젝트를 시작할 때 딱 한 번 실행하면 됩니다.** 같은 프로젝트에서 새 기능을 만들거나 대화를 새로 열 때마다 반복할 필요는 없습니다. 다른 프로젝트를 시작하면 그 프로젝트에서 한 번 설정합니다. 나중에 이슈 관리 방식을 바꾸고 싶다면 설정 문서를 수정하거나 이 스킬을 다시 실행할 수 있습니다.
 
@@ -364,7 +364,7 @@ flowchart LR
 
 ## 3강. /grill-with-docs — 원하는 기능을 질문과 답변으로 분명하게 정하기
 
-**실제 결과 보기 · [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001):** 질문과 답변으로 정한 내용을 [CONTEXT.md](https://github.com/jhs512/2nd-matt-user-guide/blob/001/CONTEXT.md)와 [ADR 결정 기록](https://github.com/jhs512/2nd-matt-user-guide/tree/001/docs/adr)에 남겼습니다. 막연한 “공지 게시판”이 어떤 용어와 규칙을 가진 제품으로 구체화됐는지 확인해 보세요.
+**실제 결과 보기 · [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002):** 질문과 답변으로 정한 내용을 [CONTEXT.md](https://github.com/jhs512/2nd-matt-user-guide/blob/002/CONTEXT.md)와 [ADR 결정 기록](https://github.com/jhs512/2nd-matt-user-guide/tree/002/docs/adr)에 남겼습니다. 막연한 “공지 게시판”이 어떤 용어와 규칙을 가진 제품으로 구체화됐는지 확인해 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002)
 
 이번에 추가한 핵심 단계입니다. ‘시큐리티를 쓴다’는 말만으로는 누가 무엇을 할 수 있는지, 로그인은 얼마나 유지되는지 결정되지 않습니다. 구현 전에 실제 사용 상황을 질문하고 답을 문서로 남깁니다.
 
@@ -570,7 +570,7 @@ flowchart LR
 
 ## 4강. /to-spec — 함께 정한 기능과 완성 조건을 문서로 남기기
 
-**실제 결과 보기 · [001의 명세](https://github.com/jhs512/2nd-matt-user-guide/blob/001/.scratch/notice-board/spec.md):** 앞에서 정한 규칙이 구현할 기능과 확인 조건으로 정리된 파일입니다. 아래 입력 예시와 실제 명세를 나란히 읽어 보세요.
+**실제 결과 보기 · [003의 명세](https://github.com/jhs512/2nd-matt-user-guide/blob/003/.scratch/notice-board/spec.md):** 앞에서 정한 규칙이 구현할 기능과 확인 조건으로 정리된 파일입니다. 아래 입력 예시와 실제 명세를 나란히 읽어 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003)
 
 이렇게 무엇을 만들고 어떤 조건을 만족해야 하는지 적은 문서를 **명세**라고 부릅니다.
 
@@ -691,7 +691,7 @@ flowchart LR
 
 ## 5강. /to-tickets — 하나씩 만들고 직접 실행해볼 수 있는 작은 작업으로 나누기
 
-**실제 결과 보기 · [001의 티켓 5개](https://github.com/jhs512/2nd-matt-user-guide/tree/001/.scratch/notice-board/issues):** 하나의 명세가 조회, 로그인·작성, 수정·삭제, CI, 운영 배포 작업으로 나뉩니다. [첫 번째 티켓](https://github.com/jhs512/2nd-matt-user-guide/blob/001/.scratch/notice-board/issues/01-read-notices.md)을 열면 실제 작업 크기를 볼 수 있습니다.
+**실제 결과 보기 · [004의 티켓 5개](https://github.com/jhs512/2nd-matt-user-guide/tree/004/.scratch/notice-board/issues):** 하나의 명세가 조회, 로그인·작성, 수정·삭제, CI, 운영 배포 작업으로 나뉩니다. [첫 번째 티켓](https://github.com/jhs512/2nd-matt-user-guide/blob/004/.scratch/notice-board/issues/01-read-notices.md)을 열면 실제 작업 크기를 볼 수 있습니다. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004)
 
 티켓은 이번에 끝낼 작은 작업과 확인 방법을 적은 카드입니다. 먼저 끝내야 할 티켓은 해당 작업을 시작하기 전에 끝나야 하는 일입니다.
 
@@ -784,9 +784,9 @@ flowchart LR
 
 ## 6강. /implement — 모든 티켓 구현하고 배포 결과 확인하기
 
-**실제 변화 보기 · [001 → 002 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002):** 문서만 있던 저장소에 백엔드·프론트·테스트·실행 스크립트가 추가됩니다. [002의 전체 코드](https://github.com/jhs512/2nd-matt-user-guide/tree/002)와 [당시 화면](https://github.com/jhs512/2nd-matt-user-guide/blob/002/docs/evidence/admin-detail.png)을 확인해 보세요.
+**실제 변화 보기 · [004 → 005 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005):** 명세와 티켓이 있던 저장소에 백엔드·프론트·테스트·실행 스크립트·CI가 추가됩니다. [005의 전체 코드](https://github.com/jhs512/2nd-matt-user-guide/tree/005)와 [게시판 화면](https://github.com/jhs512/2nd-matt-user-guide/blob/005/docs/evidence/admin-detail.png)을 확인해 보세요.
 
-`002`는 첫 구현이고 수정이 끝난 최종본은 아닙니다. 실제 실행에서 발견한 문제는 [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003), 화면·회귀 검사는 [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004)에서 보완했습니다. 명령 한 번이면 항상 완성되는 것이 아니라 **구현 → 실행 → 수정 → 재검사**를 거친 기록입니다.
+`005`는 구현과 검사를 마친 결과입니다. 구현 중 수행하는 테스트·리뷰·수정은 이 단계에 포함됩니다.
 
 `/implement-all`이라는 별도 스킬 대신 `/implement`에 **모든 티켓**을 지정합니다. `/implement-spec`은 여러 에이전트가 각자의 작업 폴더(worktree)에서 나눠 만든 뒤, 변경을 한 브랜치로 모아 검토 요청(PR)을 만드는 방식입니다. 이 실습은 `/implement`로 진행합니다.
 
@@ -876,7 +876,7 @@ npm run build
 
 > **쉬운 비유:** `@`는 “우리 학교”처럼 짧게 부르는 주소입니다. Vite와 TypeScript 양쪽에 같은 주소를 알려줘야 버튼 파일을 가져올 때 서로 다른 건물을 찾지 않습니다.
 
-### 실제 실행에서 추가로 확인한 주의점
+### 구현할 때 함께 확인할 조건
 
 - Spring은 `.env` 파일을 만들었다고 자동으로 읽지 않습니다. PowerShell의 `$env:이름='값'` 또는 실행 환경 설정으로 전달합니다. [실행 프로젝트의 로컬 스크립트](https://github.com/jhs512/2nd-matt-user-guide/blob/main/scripts/run-local.ps1)를 그대로 확인할 수 있습니다. 공개된 실습 계정은 운영에 재사용하지 않습니다.
 - Spring Security가 오류 처리 경로까지 막으면 원래의 400·404가 인증 오류로 바뀔 수 있습니다. `DispatcherType.ERROR` 처리와 실제 오류 응답을 테스트합니다. 외부의 모든 URL을 허용하라는 뜻은 아닙니다.
@@ -964,9 +964,9 @@ Spring Boot는 `.env` 파일을 만들었다고 자동으로 읽지 않습니다
 
 ## 6강의 배포 실습 — GitHub Actions가 전체 흐름을 제어하기
 
-**실제 변화 보기:** [005의 CI 성공 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/005/docs/execution-log.md) → [005 → 006의 Railway 자동배포 설정](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) → [006 → 007의 H2 메모리 테스트 수정](https://github.com/jhs512/2nd-matt-user-guide/compare/006...007) → [008의 공개 배포 결과](https://github.com/jhs512/2nd-matt-user-guide/blob/008/docs/production-status.md).
+**실제 변화 보기 · [005 → 006 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006):** 검사까지 준비된 프로젝트에 Railway·Pages 배포 작업과 운영 안내를 추가합니다. [006의 배포 설정](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/deployment.md)과 [공개 결과](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/production-status.md)를 확인해 보세요.
 
-배포에는 아래 CLI 명령과 외부 서비스 설정이 함께 필요했습니다. `008` 시점에도 Pages 자동배포용 토큰은 미설정이며, Pages의 첫 공개 업로드와 Railway 자동배포까지만 완료했습니다.
+외부 계정과 토큰은 아래 절차대로 준비합니다. 예제의 Pages 최초 업로드와 Railway 자동배포는 완료했으며 Pages 자동 업로드는 토큰 설정이 필요합니다.
 
 CI는 변경할 때마다 테스트와 빌드를 자동 확인하는 과정입니다. 이 실습의 CD는 통과한 변경을 실제 서비스에 배포하는 과정입니다. PR은 변경을 합치기 전에 검토하는 요청이고, main은 여기서 운영 배포의 기준으로 삼은 브랜치입니다.
 
@@ -1062,7 +1062,7 @@ railway login --browserless
 
 #### 5. Railway 프로젝트와 API 서비스 연결
 
-Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. **로그인 성공과 새 서비스 생성 가능 여부는 별개입니다.** 실제 실습에서는 `railway init --name 2nd-matt-user-guide --json`이 `Free plan resource provision limit exceeded`로 거절됐습니다. 이런 경우 요금제·리소스 한도를 먼저 확인하고, 기존 서비스를 임의로 지우거나 결제 설정을 바꾸지 않습니다. 코드·로컬 검사·CI는 계속 진행하되 운영 배포 티켓은 완료로 표시하지 않습니다. 실제 실습은 이후 사용자가 Hobby로 업그레이드해 생성과 배포에 성공했습니다. 카드 등록 화면을 마친 것과 요금제 변경 완료를 구분해 대시보드에서 확인합니다. [요금제 안내](https://docs.railway.com/pricing/plans)
+Railway 대시보드에서 필요한 요금제와 리소스 한도를 확인한 뒤 프로젝트, API용 서비스와 PostgreSQL 서비스를 준비합니다. 이 예제는 Hobby 요금제를 사용합니다. [요금제 안내](https://docs.railway.com/pricing/plans)
 
 그 뒤 **게시판 저장소 루트**에서 실행합니다.
 
@@ -1089,7 +1089,7 @@ Railway 소스 루트는 Dockerfile 위치에 맞춥니다. `backend/Dockerfile`
 
 Cloudflare에서는 해당 계정의 **Cloudflare Pages 편집 권한**을 가진 API 토큰을 만들고, Railway에서는 배포 대상 프로젝트·환경의 토큰을 만듭니다. GitHub 저장소의 **Settings → Secrets and variables → Actions**에서 등록합니다. production 환경 Secret을 사용한다면 **Settings → Environments → production**에 등록하고 배포 job이 그 환경을 참조하게 합니다.
 
-Railway는 **해당 프로젝트의 Settings → Tokens**에서 `production` 환경을 선택해 토큰을 만듭니다. 실제 실행에서는 CLI의 토큰 생성 요청이 `Not Authorized`였지만 이 화면에서는 생성할 수 있었습니다. [Railway 토큰 안내](https://docs.railway.com/integrations/api)
+Railway는 **해당 프로젝트의 Settings → Tokens**에서 `production` 환경을 선택해 토큰을 만듭니다. [Railway 토큰 안내](https://docs.railway.com/integrations/api)
 
 Cloudflare는 API Tokens에서 사용자 지정 토큰을 만들고 **Account → Cloudflare Pages → Edit** 권한과 배포할 계정 범위를 지정합니다. [Cloudflare CI 인증 안내](https://developers.cloudflare.com/pages/how-to/use-direct-upload-with-continuous-integration/)
 
@@ -1231,18 +1231,18 @@ npx wrangler pages deploy dist --project-name="$CLOUDFLARE_PAGES_PROJECT" --bran
 
 > **학교 방송 비유:** 방송실 장비와 교실 스피커를 따로 교체하면 둘 중 하나만 새것이 될 수 있습니다. 그래서 새 장비가 기존 스피커와도 연결되게 준비합니다. 이것이 여기서 말하는 호환성입니다. ‘두 곳 모두 동시에 바뀌거나 아무것도 안 바뀜’이 보장되지 않으므로 어느 곳이 성공했는지 따로 확인합니다. health 확인도 전원이 켜졌다는 것뿐 아니라 실제 필요한 연결이 준비됐는지 보는 점검입니다.
 
-### 실습에서 실제로 막혔던 곳
+### 실행이 안 될 때 확인할 것
 
 | 증상 | 먼저 확인할 것 |
 | --- | --- |
 | Spring Boot가 설정 누락으로 시작하지 않음 | `.env` 존재 여부만 보지 말고 실행 프로세스에 관리자 설정·JWT 키를 전달했는지 확인 |
 | 로컬은 되는데 공개 화면에서 API 요청 실패 | `VITE_API_BASE_URL`을 넣고 다시 빌드했는지, API CORS에 실제 Pages Origin이 있는지 확인 |
-| Railway 로그인은 되지만 프로젝트 생성 실패 | 오류의 요금제·리소스 한도 확인. 실제 실행에서는 Hobby 업그레이드 후 해결 |
+| Railway 로그인은 되지만 프로젝트 생성 실패 | 오류의 요금제·리소스 한도 확인. 프로젝트 생성에 필요한 요금제 준비 |
 | Actions 성공인데 Pages가 갱신되지 않음 | Pages 업로드 단계가 `Skipped`인지, 토큰과 `PAGES_DEPLOY_ENABLED`를 준비했는지 확인 |
-| CI의 PostgreSQL 시작에서 `unknown -U` 오류 | 서비스의 `--health-cmd` 인수를 큰따옴표로 묶기. 실제 실패했던 작은따옴표를 그대로 복사하지 않기 |
+| CI의 PostgreSQL 시작에서 `unknown -U` 오류 | 서비스의 `--health-cmd` 인수를 큰따옴표로 묶기. 인수 안의 공백이 나뉘지 않도록 확인 |
 | 브라우저 테스트에서 Chromium을 찾지 못함 | 테스트 전에 `npx playwright install --with-deps chromium` 실행. 이 설치 옵션은 Ubuntu CI 기준 |
 
-H2를 메모리로 실행해도 테스트마다 데이터가 저절로 지워지는 것은 아닙니다. 테스트를 마치면 데이터를 지우거나 테스트별로 DB를 분리합니다. 이번 실행의 CI 브라우저 테스트도 파일 DB에서 H2 메모리 DB로 맞추고 다시 검증했습니다.
+H2를 메모리로 실행해도 테스트마다 데이터가 저절로 지워지는 것은 아닙니다. 테스트를 마치면 데이터를 지우거나 테스트별로 DB를 분리합니다. CI 브라우저 테스트에도 H2 메모리 DB 주소를 명시합니다.
 
 > **쉬운 비유:** 메모리 DB는 임시 칠판입니다. 교실 문을 닫으면 사라지는 칠판이라도, 다음 문제가 시작되기 전에 앞 문제의 낙서는 직접 지워야 합니다.
 
@@ -1795,34 +1795,29 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 
 ## 이 매뉴얼을 실제로 실행해 본 결과
 
-### 001부터 008까지, 실제로 무엇이 바뀌었나요?
+### 수업 순서대로 보는 6개 커밋
 
-**‘그때 파일’**은 해당 시점의 전체 저장소이고, **‘바뀐 부분’**은 직전 태그와 비교한 수정 내용입니다. GitHub 비교 화면에서 초록색은 추가, 빨간색은 삭제입니다. 파일 이름을 눌러 내용을 펼쳐 보세요. 태그는 이후 main이 바뀌어도 이 실습 시점을 가리킵니다.
+실제 구현 결과를 교육용 순서로 정리했습니다. 각 태그에서 해당 단계가 끝난 파일을 보고, 비교 링크로 새로 생긴 내용을 확인하세요. GitHub 비교 화면의 초록색은 추가, 빨간색은 삭제입니다.
 
-> **쉬운 비유:** 태그는 작업 중간에 찍어 둔 사진 번호입니다. `001`은 설계 문서가 놓인 책상, `002`는 프로그램을 처음 만든 책상입니다. 비교 링크는 두 사진 사이에 무엇이 추가되고 바뀌었는지 보여 줍니다.
+> **쉬운 비유:** 조립 설명서의 1번부터 6번까지 사진처럼, 각 단계에서 무엇이 완성되는지 보여 줍니다. 조립 중의 모든 손동작을 사진으로 나누는 대신 완성된 단계끼리 비교합니다.
 
-| 태그 | 관련 단계 | 눈으로 확인할 변화 | 그때 파일 | 바뀐 부분 |
+| 태그 | 수업 | 결과 | 파일 보기 | 전후 비교 |
 | --- | --- | --- | --- | --- |
-| 001 | `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` | 작업 규칙·용어·결정·명세·티켓을 함께 저장 | [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001) | [첫 커밋에서 추가한 문서](https://github.com/jhs512/2nd-matt-user-guide/commit/094522c8af38b3c2284929f5366b9304a8b1d55b) |
-| 002 | `/implement` 첫 구현 | 게시판 코드·테스트·실행 스크립트·CI 파일 추가 | [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002) | [001 → 002](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002) |
-| 003 | 구현 후 실제 실행·수정 | 시간 정밀도·화면·CI 문제 수정, 실행 기록 추가 | [003](https://github.com/jhs512/2nd-matt-user-guide/tree/003) | [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003) |
-| 004 | 화면 재검사 | 화면 동작과 테스트 보강, 티켓 진행 상태 기록 | [004](https://github.com/jhs512/2nd-matt-user-guide/tree/004) | [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004) |
-| 005 | CI 결과 확인 | CI 성공과 당시 Railway 요금제 제한을 기록 | [005](https://github.com/jhs512/2nd-matt-user-guide/tree/005) | [004 → 005](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005) |
-| 006 | Railway 자동배포 연결 | Railway 배포 활성화, Pages 업로드 조건 분리 | [006](https://github.com/jhs512/2nd-matt-user-guide/tree/006) | [005 → 006](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) |
-| 007 | 매뉴얼과 구현 대조 | CI 브라우저 테스트의 H2 파일 DB를 메모리 DB로 변경 | [007](https://github.com/jhs512/2nd-matt-user-guide/tree/007) | [006 → 007](https://github.com/jhs512/2nd-matt-user-guide/compare/006...007) |
-| 008 | 운영 결과 정리 | 공개 주소·화면 증거·완료한 작업과 Pages 자동배포의 남은 설정 기록 | [008](https://github.com/jhs512/2nd-matt-user-guide/tree/008) | [007 → 008](https://github.com/jhs512/2nd-matt-user-guide/compare/007...008) |
+| 001 | 2강 · 하네스 세팅 | 작업 규칙과 에이전트 안내 | [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001) | [추가한 파일](https://github.com/jhs512/2nd-matt-user-guide/commit/3b8c88e28e85d6baf3e8d34e7250ac7929a61134) |
+| 002 | 3강 · 요구사항 정리 | CONTEXT.md와 ADR | [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002) | [001 → 002](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002) |
+| 003 | 4강 · 명세 | 기능·완성 조건을 담은 spec.md | [003](https://github.com/jhs512/2nd-matt-user-guide/tree/003) | [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003) |
+| 004 | 5강 · 티켓 | 작업 5개와 실행 순서 | [004](https://github.com/jhs512/2nd-matt-user-guide/tree/004) | [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004) |
+| 005 | 6강 · 구현·검사 | 게시판 코드·테스트·로컬 실행·CI | [005](https://github.com/jhs512/2nd-matt-user-guide/tree/005) | [004 → 005](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005) |
+| 006 | 6강 · 배포 | Railway·Pages 설정과 공개 결과 | [006](https://github.com/jhs512/2nd-matt-user-guide/tree/006) | [005 → 006](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) |
 
-이 번호는 **실제로 존재하는 8개 커밋의 시간 순서**입니다. 설치는 PC에 적용되는 작업이어서 별도 코드 커밋이 없고, 2–5강은 `001`에 묶여 있습니다. 외부 서비스의 로그인·요금제·토큰 설정 자체는 Git에 저장되지 않습니다. 각 태그를 명령 하나의 자동 실행 결과로 해석하지 말고, 해당 단계에서 저장한 결과로 읽어 주세요.
-
-
-[2nd-matt-user-guide 공개 저장소](https://github.com/jhs512/2nd-matt-user-guide)에 빈 프로젝트부터 수행한 코드, 결정 문서, 티켓, 테스트와 실제 화면을 남겼습니다. [실행 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/execution-log.md)에서 실패한 단계와 수정 이유를 확인할 수 있습니다.
+설치는 PC 환경에 적용되므로 별도 코드 커밋이 없습니다. 외부 서비스의 로그인·요금제·토큰은 Git에 저장되지 않으므로 배포 절차에서 준비합니다.
 
 Spring Boot 4.1.1, Kotlin 2.3.21, Gradle 9.7.1, JDK 25로 실행했습니다. 버전은 이번 실행의 기록이며 앞으로도 항상 최신이라는 뜻은 아닙니다.
 
 | 확인 대상 | 실제 결과 |
 | --- | --- |
 | 로컬 실행과 자동 검사 | H2 HTTP 테스트, 프론트 검사, Chromium 브라우저 테스트, 별도 PostgreSQL CRUD 통과 |
-| Railway API와 운영 DB | Hobby 업그레이드 후 배포 성공. 실제 운영 DB는 Railway 템플릿의 PostgreSQL 18 |
+| Railway API와 운영 DB | Hobby 환경에서 배포 성공. 실제 운영 DB는 Railway 템플릿의 PostgreSQL 18 |
 | Railway 자동배포 | GitHub Actions에서 배포 후 실행 중인 API의 커밋 번호와 health 확인 |
 | Cloudflare Pages 공개 배포 | 로컬 Wrangler CLI로 업로드 완료 |
 | 공개 서비스 동작 | 브라우저에서 로그인·작성·수정·삭제와 새로고침 후 로그아웃 확인 |

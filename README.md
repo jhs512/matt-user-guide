@@ -2,9 +2,9 @@
 
 ## 초간단 요약
 
-**1. 전체 스킬 설치** — 터미널에 붙여 넣습니다.
+**1. 준비 후 전체 스킬 설치** — 먼저 [시작 전 준비](#시작-전-준비)를 마칩니다. macOS는 터미널, Windows는 PowerShell에 아래 명령을 붙여 넣습니다.
 
-```powershell
+```sh
 npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex claude-code --copy --yes
 ```
 
@@ -49,11 +49,11 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 | 문서에 보이는 내용 | 입력하거나 확인할 곳 | 예 |
 | --- | --- | --- |
 | `/grill-with-docs`처럼 스킬로 시작하는 요청 | 프로젝트를 연 코딩 에이전트의 **대화창** | 질문에 답하며 요구사항 정하기 |
-| `git`, `npm`, `npx`, `java`로 시작하는 실행 명령 | **PowerShell 터미널** | 설치, 앱 실행, GitHub에 코드 올리기 |
+| `git`, `npm`, `npx`, `java`로 시작하는 실행 명령 | **macOS 터미널 / Windows PowerShell** | 설치, 앱 실행, GitHub에 코드 올리기 |
 | 파일 내용·폴더 그림·예상 대화 | 읽고 실제 결과와 **비교** | spec.md의 내용이 맞는지 확인 |
 | `http://localhost:5173` 같은 주소 | **브라우저 주소창** | 실행 중인 앱 열기 |
 
-코드 상자의 `powershell`, `text`, `json` 같은 글자는 내용의 종류를 표시합니다. 입력할 때는 상자 안의 내용만 복사하세요. **‘예상 결과물’ 아래의 코드는 실행 명령이 아닙니다.**
+코드 상자의 `sh`, `bash`, `powershell`, `text`, `json` 같은 글자는 내용의 종류를 표시합니다. 입력할 때는 상자 안의 내용만 복사하세요. **‘예상 결과물’ 아래의 코드는 실행 명령이 아닙니다.**
 
 > **쉬운 비유:** 대화창은 작업을 부탁하는 곳, 터미널은 실제 장비를 조작하는 곳, 브라우저는 완성된 화면을 보는 곳입니다. 같은 문장을 아무 창에나 넣으면 되는 것이 아닙니다.
 
@@ -76,7 +76,58 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 
 ## 시작 전 준비
 
-스킬을 설치할 코딩 에이전트와 Git, Node.js(npm·npx 포함)를 준비합니다. 앱 구현에 필요한 추가 도구는 선택한 기술에 맞춰 에이전트의 안내를 따릅니다.
+**이 튜토리얼의 공통 필수조건은 코딩 에이전트, Git, Node.js(npm·npx 포함), Docker Desktop 설치 및 실행입니다.** macOS에서는 Homebrew도 먼저 설치합니다. Docker Desktop은 Matt 스킬 자체의 실행 조건이 아니라, 이 실습에서 컨테이너를 사용하는 작업을 위한 준비 기준입니다.
+
+### macOS: 터미널에서 준비
+
+Spotlight에서 **터미널**을 찾아 엽니다. 기본 셸(zsh)을 사용하면 되며 PowerShell을 설치할 필요는 없습니다.
+
+1. [Homebrew 공식 안내](https://brew.sh/)의 설치 명령을 터미널에서 실행합니다. 이미 설치했다면 `brew --version`으로 확인하고 넘어갑니다.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+설치 중 개발 도구 설치 안내가 나오면 따릅니다. 설치 마지막의 **Next steps**에 표시된 PATH 설정 명령도 실행한 뒤 터미널을 다시 엽니다. Apple Silicon과 Intel의 설치 경로가 다를 수 있으므로 본인 화면에 나온 명령을 사용합니다.
+
+2. Homebrew를 확인하고 Git과 Node.js를 설치합니다. 이미 프로젝트에 맞는 버전을 사용 중이라면 중복 설치하지 않습니다.
+
+```bash
+brew --version
+brew install git node
+```
+
+3. [Docker Desktop macOS 설치 안내](https://docs.docker.com/desktop/setup/install/mac-install/)에서 본인 Mac의 **Apple Silicon / Intel**에 맞는 설치 파일을 받습니다. 응용 프로그램 폴더에 설치하고 **Docker 앱을 실행**해 초기 설정을 마칩니다.
+
+### Windows: PowerShell에서 준비
+
+[Git](https://git-scm.com/downloads/win)과 [Node.js](https://nodejs.org/en/download)를 설치한 뒤 PowerShell을 새로 엽니다. Windows에서는 Homebrew 설치 단계를 건너뜁니다.
+
+[Docker Desktop Windows 설치 안내](https://docs.docker.com/desktop/setup/install/windows-install/)에 따라 Docker Desktop을 설치합니다. WSL 2 백엔드를 사용하는 경우 안내된 WSL·가상화 요구사항도 충족해야 합니다. 설치 후 시작 메뉴에서 **Docker Desktop을 실행**하고 초기 설정을 마칩니다.
+
+### 공통: 설치와 실행 확인
+
+macOS 터미널과 Windows PowerShell에서 똑같이 실행할 수 있습니다.
+
+```sh
+git --version
+node --version
+npm --version
+npx --version
+docker --version
+docker compose version
+docker info
+```
+
+**`docker --version`만 성공하면 설치된 명령만 확인한 것입니다. `docker info`에서 Server 정보까지 오류 없이 표시되어야 실행 준비가 된 것입니다.** 연결 오류가 나면 Docker Desktop을 열어 엔진 시작이 끝났는지 확인합니다. 컨테이너를 사용하는 실습 중에는 Docker Desktop을 실행 상태로 유지합니다.
+
+- [ ] 코딩 에이전트가 준비되어 있다.
+- [ ] macOS에서는 `brew --version`이 나온다.
+- [ ] Git과 Node.js, npm·npx 명령이 동작한다.
+- [ ] Docker Desktop을 설치하고 실행했다.
+- [ ] `docker compose version`과 `docker info`가 정상 동작한다.
+
+앱 구현에 필요한 추가 도구와 버전은 선택한 기술에 맞춰 에이전트의 안내를 따릅니다. 생성된 실행 스크립트도 운영체제에 맞춰 안내받습니다. `.ps1`은 PowerShell용이므로 Mac 기본 터미널에서 그대로 실행하지 않습니다.
 
 각 강은 **입력 → 예상 결과물 → 사용 전후 차이 → 완료 확인** 순서입니다. 대화와 결과물은 예시이며, 실제 실행 기록은 문서 마지막에 연결했습니다.
 
@@ -152,7 +203,7 @@ flowchart LR
 
 ### 설치: 터미널 입력
 
-```powershell
+```sh
 npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex claude-code --copy --yes
 ```
 
@@ -167,7 +218,7 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 | `--copy` | 에이전트 설치 위치에 다른 위치를 가리키는 링크 대신 실제 파일 복사 |
 | 마지막 `--yes` | 스킬 설치기의 확인 질문 생략 |
 
-`~`는 사용자 홈 폴더입니다. 기본 설정의 Windows에서는 `C:\Users\사용자명`에 해당합니다. `.agents/skills` 같은 공용 위치와 에이전트별 경로는 설치기 출력으로 확인하고, Claude Code의 `~/.claude/skills/`도 확인합니다. 에이전트 경로를 별도로 설정한 환경에서는 실제 출력 경로를 따릅니다.
+`~`는 사용자 홈 폴더입니다. macOS에서는 `/Users/사용자명`, 기본 설정의 Windows에서는 `C:\Users\사용자명`에 해당합니다. `.agents/skills` 같은 공용 위치와 에이전트별 경로는 설치기 출력으로 확인하고, Claude Code의 `~/.claude/skills/`도 확인합니다. 에이전트 경로를 별도로 설정한 환경에서는 실제 출력 경로를 따릅니다.
 
 > **학교생활 비유:** 필요한 준비물을 하나씩 고르는 대신 세트 전체를 준비하고, 내 개인 보관함에 넣어 어느 프로젝트에서도 꺼내 쓰게 합니다. Codex용과 Claude용 위치에 각각 복사하므로 두 도구에서 사용할 수 있습니다. 스킬은 전역 설치해도 `/setup-matt-pocock-skills`로 정하는 프로젝트 규칙은 저장소마다 다릅니다.
 
@@ -1177,14 +1228,14 @@ GitHub Actions 배포 방법, 환경변수 주입 시점, 서로 다른 도메�
 한 단계씩 따라갈 수 있는 안내로 만들어줘.
 각 단계의 목적과 성공 확인 방법을 설명하고,
 비밀값은 채팅에 붙여 넣지 않고 필요한 저장 위치에 설정하게 해줘.
-Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해줘.
+내 운영체제에 맞는 실행 방법도 안내해줘.
 ```
 
 **왜 쓰나요?** 계정 승인이나 실제 계정·토큰 입력은 코드 작성과 다른 종류의 작업입니다. 설정을 ‘알아서 됐겠지’라고 넘기지 않고 필요한 값과 위치를 정확히 확인합니다. 에이전트가 직접 할 수 있는 일에는 이 우회 단계를 추가하지 않습니다.
 
 > **학교 방송 비유:** 방송 원고와 장비 점검이 끝나도 방송실 열쇠를 가진 선생님의 승인이 필요할 수 있습니다. 열쇠를 받는 절차와 방송을 실제로 내보내는 절차를 구분하는 것입니다.
 
-`/wizard`는 설치된 스킬 기준으로 Bash 안내 스크립트를 생성하는 도구입니다. Windows PowerShell에서 그대로 실행된다고 가정하지 않습니다. 설정을 끝내면 남은 티켓을 지정해 `/implement`를 재개하고 실제 배포·공개 화면·DB 저장 결과를 확인합니다.
+`/wizard`는 설치된 스킬 기준으로 Bash 안내 스크립트를 생성하는 도구입니다. macOS에서는 터미널에서 Bash로 실행하고, Windows에서는 Git Bash·WSL 등 필요한 실행 환경을 확인합니다. PowerShell에서 그대로 실행된다고 가정하지 않습니다. 설정을 끝내면 남은 티켓을 지정해 `/implement`를 재개하고 실제 배포·공개 화면·DB 저장 결과를 확인합니다.
 
 **끝나면:** 설정값이 필요한 곳에 들어가고 배포가 확인됩니다. 안내 파일만 생성됐다면 아직 배포 완료가 아닙니다.
 

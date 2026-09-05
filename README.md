@@ -244,9 +244,9 @@ flowchart LR
 
 ## 2강. 하네스 세팅 — /setup-matt-pocock-skills
 
-**실제 결과 보기 · [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001):** 작업 규칙이 없는 상태에서 [AGENTS.md](https://github.com/jhs512/2nd-matt-user-guide/blob/001/AGENTS.md)와 [에이전트용 안내 문서](https://github.com/jhs512/2nd-matt-user-guide/tree/001/docs/agents)가 생겼습니다. 무엇을 먼저 읽고 어디에 작업을 기록할지 확인해 보세요.
+**실제 결과 보기 · [002](https://github.com/jhs512/2nd-matt-user-guide/commit/002):** 작업 규칙이 없는 상태에서 [AGENTS.md](https://github.com/jhs512/2nd-matt-user-guide/blob/002/AGENTS.md)와 [에이전트용 안내 문서](https://github.com/jhs512/2nd-matt-user-guide/tree/002/docs/agents)가 생겼습니다. 무엇을 먼저 읽고 어디에 작업을 기록할지 확인해 보세요.
 
-각 태그는 수업별 결과입니다. `001`에서는 하네스 설정 파일만 확인할 수 있습니다.
+각 태그는 수업별 결과입니다. `002`에서는 하네스 설정 파일만 확인할 수 있습니다.
 
 **새 프로젝트를 시작할 때 딱 한 번 실행하면 됩니다.** 같은 프로젝트에서 새 기능을 만들거나 대화를 새로 열 때마다 반복할 필요는 없습니다. 다른 프로젝트를 시작하면 그 프로젝트에서 한 번 설정합니다. 나중에 이슈 관리 방식을 바꾸고 싶다면 설정 문서를 수정하거나 이 스킬을 다시 실행할 수 있습니다.
 
@@ -364,7 +364,7 @@ flowchart LR
 
 ## 3강. /grill-with-docs — 원하는 기능을 질문과 답변으로 분명하게 정하기
 
-**실제 결과 보기 · [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002):** 질문과 답변으로 정한 내용을 [CONTEXT.md](https://github.com/jhs512/2nd-matt-user-guide/blob/002/CONTEXT.md)와 [ADR 결정 기록](https://github.com/jhs512/2nd-matt-user-guide/tree/002/docs/adr)에 남겼습니다. 막연한 “공지 게시판”이 어떤 용어와 규칙을 가진 제품으로 구체화됐는지 확인해 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002)
+**실제 결과 보기 · [003](https://github.com/jhs512/2nd-matt-user-guide/commit/003):** 질문과 답변으로 정한 내용을 [CONTEXT.md](https://github.com/jhs512/2nd-matt-user-guide/blob/003/CONTEXT.md)와 [ADR 결정 기록](https://github.com/jhs512/2nd-matt-user-guide/tree/003/docs/adr)에 남겼습니다. 막연한 “공지 게시판”이 어떤 용어와 규칙을 가진 제품으로 구체화됐는지 확인해 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/commit/003)
 
 이번에 추가한 핵심 단계입니다. ‘시큐리티를 쓴다’는 말만으로는 누가 무엇을 할 수 있는지, 로그인은 얼마나 유지되는지 결정되지 않습니다. 구현 전에 실제 사용 상황을 질문하고 답을 문서로 남깁니다.
 
@@ -570,7 +570,7 @@ flowchart LR
 
 ## 4강. /to-spec — 함께 정한 기능과 완성 조건을 문서로 남기기
 
-**실제 결과 보기 · [003의 명세](https://github.com/jhs512/2nd-matt-user-guide/blob/003/.scratch/notice-board/spec.md):** 앞에서 정한 규칙이 구현할 기능과 확인 조건으로 정리된 파일입니다. 아래 입력 예시와 실제 명세를 나란히 읽어 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003)
+**실제 결과 보기 · [004 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/004):** 앞에서 정한 규칙이 구현할 기능과 확인 조건으로 정리된 파일입니다. 아래 입력 예시와 실제 명세를 나란히 읽어 보세요. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/commit/004)
 
 이렇게 무엇을 만들고 어떤 조건을 만족해야 하는지 적은 문서를 **명세**라고 부릅니다.
 
@@ -691,7 +691,7 @@ flowchart LR
 
 ## 5강. /to-tickets — 하나씩 만들고 직접 실행해볼 수 있는 작은 작업으로 나누기
 
-**실제 결과 보기 · [004의 티켓 5개](https://github.com/jhs512/2nd-matt-user-guide/tree/004/.scratch/notice-board/issues):** 하나의 명세가 조회, 로그인·작성, 수정·삭제, CI, 운영 배포 작업으로 나뉩니다. [첫 번째 티켓](https://github.com/jhs512/2nd-matt-user-guide/blob/004/.scratch/notice-board/issues/01-read-notices.md)을 열면 실제 작업 크기를 볼 수 있습니다. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004)
+**실제 결과 보기 · [005 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/005):** 하나의 명세가 조회, 로그인·작성, 수정·삭제, CI, 운영 배포 작업으로 나뉩니다. [첫 번째 티켓](https://github.com/jhs512/2nd-matt-user-guide/blob/005/.scratch/notice-board/issues/01-read-notices.md)을 열면 실제 작업 크기를 볼 수 있습니다. [이전 단계와 비교](https://github.com/jhs512/2nd-matt-user-guide/commit/005)
 
 티켓은 이번에 끝낼 작은 작업과 확인 방법을 적은 카드입니다. 먼저 끝내야 할 티켓은 해당 작업을 시작하기 전에 끝나야 하는 일입니다.
 
@@ -784,9 +784,9 @@ flowchart LR
 
 ## 6강. /implement — 모든 티켓 구현하고 배포 결과 확인하기
 
-**실제 변화 보기 · [004 → 005 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005):** 명세와 티켓이 있던 저장소에 백엔드·프론트·테스트·실행 스크립트·CI가 추가됩니다. [005의 전체 코드](https://github.com/jhs512/2nd-matt-user-guide/tree/005)와 [게시판 화면](https://github.com/jhs512/2nd-matt-user-guide/blob/005/docs/evidence/admin-detail.png)을 확인해 보세요.
+**실제 변화 보기 · [6강 변경 내용 · 006](https://github.com/jhs512/2nd-matt-user-guide/commit/006):** 명세와 티켓이 있던 저장소에 백엔드·프론트·테스트·실행 스크립트·CI가 추가됩니다. [006의 변경 코드](https://github.com/jhs512/2nd-matt-user-guide/commit/006)와 [게시판 화면](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/evidence/admin-detail.png)을 확인해 보세요.
 
-`005`는 구현과 검사를 마친 결과입니다. 구현 중 수행하는 테스트·리뷰·수정은 이 단계에 포함됩니다.
+`006`는 구현과 검사를 마친 결과입니다. 구현 중 수행하는 테스트·리뷰·수정은 이 단계에 포함됩니다.
 
 `/implement-all`이라는 별도 스킬 대신 `/implement`에 **모든 티켓**을 지정합니다. `/implement-spec`은 여러 에이전트가 각자의 작업 폴더(worktree)에서 나눠 만든 뒤, 변경을 한 브랜치로 모아 검토 요청(PR)을 만드는 방식입니다. 이 실습은 `/implement`로 진행합니다.
 
@@ -964,7 +964,7 @@ Spring Boot는 `.env` 파일을 만들었다고 자동으로 읽지 않습니다
 
 ## 6강의 배포 실습 — GitHub Actions가 전체 흐름을 제어하기
 
-**실제 변화 보기 · [005 → 006 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006):** 검사까지 준비된 프로젝트에 Railway·Pages 배포 작업과 운영 안내를 추가합니다. [006의 배포 설정](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/deployment.md)과 [공개 결과](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/production-status.md)를 확인해 보세요.
+**6강 배포 결과 · [006 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/006):** 구현·검사와 배포 설정은 6강의 한 커밋에 함께 들어 있습니다. [006의 배포 설정](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/deployment.md)과 [공개 결과](https://github.com/jhs512/2nd-matt-user-guide/blob/006/docs/production-status.md)를 확인해 보세요.
 
 외부 계정과 토큰은 아래 절차대로 준비합니다. 예제의 Pages 최초 업로드와 Railway 자동배포는 완료했으며 Pages 자동 업로드는 토큰 설정이 필요합니다.
 
@@ -1795,20 +1795,19 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 
 ## 이 매뉴얼을 실제로 실행해 본 결과
 
-### 수업 순서대로 보는 6개 커밋
+### 강좌 번호와 같은 커밋 번호
 
-실제 구현 결과를 교육용 순서로 정리했습니다. 각 태그에서 해당 단계가 끝난 파일을 보고, 비교 링크로 새로 생긴 내용을 확인하세요. GitHub 비교 화면의 초록색은 추가, 빨간색은 삭제입니다.
+**2강은 002, 3강은 003처럼 강좌 번호와 태그 번호가 같습니다.** 커밋 링크를 열면 해당 강에서 추가하거나 바꾼 파일이 바로 보입니다. 초록색은 추가, 빨간색은 삭제입니다.
 
-> **쉬운 비유:** 조립 설명서의 1번부터 6번까지 사진처럼, 각 단계에서 무엇이 완성되는지 보여 줍니다. 조립 중의 모든 손동작을 사진으로 나누는 대신 완성된 단계끼리 비교합니다.
+> **쉬운 비유:** 교과서의 강 번호와 실습 결과물의 이름표를 같게 붙였습니다. 4강을 읽고 `004`를 열면 그 강에서 만든 명세가 보입니다.
 
-| 태그 | 수업 | 결과 | 파일 보기 | 전후 비교 |
-| --- | --- | --- | --- | --- |
-| 001 | 2강 · 하네스 세팅 | 작업 규칙과 에이전트 안내 | [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001) | [추가한 파일](https://github.com/jhs512/2nd-matt-user-guide/commit/3b8c88e28e85d6baf3e8d34e7250ac7929a61134) |
-| 002 | 3강 · 요구사항 정리 | CONTEXT.md와 ADR | [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002) | [001 → 002](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002) |
-| 003 | 4강 · 명세 | 기능·완성 조건을 담은 spec.md | [003](https://github.com/jhs512/2nd-matt-user-guide/tree/003) | [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003) |
-| 004 | 5강 · 티켓 | 작업 5개와 실행 순서 | [004](https://github.com/jhs512/2nd-matt-user-guide/tree/004) | [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004) |
-| 005 | 6강 · 구현·검사 | 게시판 코드·테스트·로컬 실행·CI | [005](https://github.com/jhs512/2nd-matt-user-guide/tree/005) | [004 → 005](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005) |
-| 006 | 6강 · 배포 | Railway·Pages 설정과 공개 결과 | [006](https://github.com/jhs512/2nd-matt-user-guide/tree/006) | [005 → 006](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) |
+| 태그 | 수업 | 결과 | 해당 강의 변경 내용 |
+| --- | --- | --- | --- |
+| 002 | 2강 · 하네스 세팅 | 작업 규칙과 에이전트 안내 | [002 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/002) |
+| 003 | 3강 · 요구사항 정리 | CONTEXT.md와 ADR | [003 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/003) |
+| 004 | 4강 · 명세 | 기능·완성 조건을 담은 spec.md | [004 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/004) |
+| 005 | 5강 · 티켓 | 작업 5개와 실행 순서 | [005 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/005) |
+| 006 | 6강 · 구현·검사·배포 | 게시판 코드·테스트·CI·배포 설정과 공개 결과 | [006 커밋](https://github.com/jhs512/2nd-matt-user-guide/commit/006) |
 
 설치는 PC 환경에 적용되므로 별도 코드 커밋이 없습니다. 외부 서비스의 로그인·요금제·토큰은 Git에 저장되지 않으므로 배포 절차에서 준비합니다.
 

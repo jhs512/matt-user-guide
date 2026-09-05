@@ -1,5 +1,7 @@
 # Matt Pocock 스킬 튜토리얼 — 공지사항 게시판을 배포까지
 
+함께 읽기: [목적별 /archify 프롬프트 매뉴얼](ARCHIFY-GUIDE.md) — 전체 구조, 권한, 업무 흐름, 데이터, 보안, 변경 영향과 테스트를 시각화하는 12가지 요청 예시.
+
 **설치 → `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` → `/implement`로 전체 구현**을 진행합니다. 하나의 공지사항 게시판을 설계하고, Kotlin/Spring 백엔드와 React 프론트엔드를 만들어 GitHub Actions로 배포하는 실습입니다.
 
 각 강에는 **복사용 입력 → 예상 결과물 → 사용 전후 차이 → 완료 확인**이 있습니다.

@@ -4,6 +4,56 @@
 
 > 아래 12개 예시는 학생·교사·문제배정·몰입일지를 다루는 **교육 운영 프로젝트용 요청문**입니다. 실제 구현을 확인한 설명이 아닙니다. 해당 프로젝트를 작업 폴더로 열고 실행하세요. 이 저장소에는 튜토리얼 문서만 있으므로 교육 서비스 코드나 외부 PDF 서버의 존재를 확인할 수 없습니다.
 
+## 설치 방법
+
+먼저 **Git과 Node.js LTS(npm·npx 포함)**를 설치합니다. GitHub 저장소·PR을 CLI로 다룰 예정이면 **GitHub CLI(`gh`)**도 설치하세요. 설치 링크는 [게시판 튜토리얼의 필수 도구 안내](README.md#시작-전-필수-설치)에 있습니다.
+
+터미널에서 확인합니다.
+
+```powershell
+git --version
+node --version
+npm --version
+```
+
+### 일반 설치
+
+여러 프로젝트에서 사용하려면 전역 설치합니다. 설치기에서 사용할 에이전트를 선택합니다.
+
+```powershell
+npx skills add tt-a1i/archify -g
+```
+
+### Codex에 명시적으로 설치
+
+전역 설치와 현재 프로젝트 설치 중 **하나만** 선택합니다. [Archify 공식 설치 안내](https://tt-a1i.github.io/archify/start.html)
+
+전역 설치:
+
+```powershell
+npx -y skills add tt-a1i/archify --skill archify --agent codex --global --copy --yes
+```
+
+현재 프로젝트에만 설치하려면 프로젝트 폴더에서 실행합니다.
+
+```powershell
+npx -y skills add tt-a1i/archify --skill archify --agent codex --copy --yes
+```
+
+### 설치 확인과 첫 사용
+
+설치기가 출력한 경로에 `archify/SKILL.md`가 있는지 확인하고, 에이전트의 스킬 목록에서 `archify`를 찾습니다. 바로 인식되지 않으면 새 대화에서 확인합니다.
+
+분석할 코드 저장소를 열고 다음을 입력합니다.
+
+```text
+/archify 이 프로젝트의 전체 구조를 그려줘.
+현재 코드에 근거해 주요 구성 요소의 책임과 연결을 표시하고,
+확인되지 않은 외부 서비스는 미확인으로 구분해줘.
+```
+
+설치는 스킬을 추가하는 단계이고, 위 호출이 실제 다이어그램 생성 요청입니다. Matt Pocock 스킬 설치와는 별개로 진행합니다.
+
 ## 시작 방법
 
 1. 분석할 프로젝트 폴더를 에이전트에서 엽니다.

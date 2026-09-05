@@ -2,6 +2,34 @@
 
 함께 읽기: [목적별 /archify 프롬프트 매뉴얼](ARCHIFY-GUIDE.md) — 전체 구조, 권한, 업무 흐름, 데이터, 보안, 변경 영향과 테스트를 시각화하는 12가지 요청 예시.
 
+## 시작 전 필수 설치
+
+이 튜토리얼은 **Git, GitHub CLI(`gh`), Node.js(npm·npx 포함)**가 설치되어 있어야 합니다. 게시판 백엔드 실습에는 **JDK 21**도 필요합니다.
+
+| 도구 | 필요한 이유 | 설치 |
+| --- | --- | --- |
+| Git | 버전 관리·커밋·푸시 | [Git 다운로드](https://git-scm.com/downloads) |
+| GitHub CLI (`gh`) | GitHub 인증·저장소·PR·Actions 확인 | [GitHub CLI 설치](https://cli.github.com/) |
+| Node.js LTS | 스킬 설치·프론트 실행·빌드 | [Node.js 다운로드](https://nodejs.org/en/download) |
+| JDK 21 | Kotlin/Spring 백엔드 실행·검증 | [Temurin 다운로드](https://adoptium.net/temurin/releases/?version=21) |
+
+설치 후 터미널을 다시 열고 확인합니다.
+
+```powershell
+git --version
+gh --version
+node --version
+npm --version
+java -version
+```
+
+GitHub 계정으로 로그인합니다. 이미 인증되어 있다면 상태 확인만 하면 됩니다.
+
+```powershell
+gh auth login
+gh auth status
+```
+
 **설치 → `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` → `/implement`로 전체 구현**을 진행합니다. 하나의 공지사항 게시판을 설계하고, Kotlin/Spring 백엔드와 React 프론트엔드를 만들어 GitHub Actions로 배포하는 실습입니다.
 
 각 강에는 **복사용 입력 → 예상 결과물 → 사용 전후 차이 → 완료 확인**이 있습니다.
@@ -91,7 +119,7 @@ Pages는 **Direct Upload 프로젝트**를 만들고 Actions에서 Wrangler로 �
 
 ### 준비
 
-Git, JDK 21, Node.js LTS와 npm, 코딩 에이전트를 준비합니다. 프론트 생성 시 선택된 Vite 버전의 Node 요구사항을 확인하고, 로컬과 CI에서 같은 Node 메이저 버전을 사용합니다.
+위 필수 도구와 코딩 에이전트를 준비합니다. 프론트 생성 시 선택된 Vite 버전의 Node 요구사항을 확인하고, 로컬과 CI에서 같은 Node 메이저 버전을 사용합니다.
 
 터미널에서 확인합니다.
 
@@ -100,6 +128,7 @@ java -version
 node --version
 npm --version
 git --version
+gh --version
 ```
 
 새 실습 폴더가 필요한 경우에만 다음을 실행합니다.
@@ -126,6 +155,7 @@ npx skills@latest add mattpocock/skills
 | `to-spec`, `to-tickets` | 명세 작성, 구현 단위 분해 |
 | `implement`, `tdd`, `code-review` | 구현, 검증, 리뷰 |
 | `triage` | 이번 실습의 기본 분류 라벨 |
+| `ask-matt` | 현재 상황에 맞는 다음 스킬·진행 순서 추천 |
 
 `grill-with-docs`는 설치된 원문에서 `grilling`과 `domain-modeling`을 함께 호출합니다. 세 스킬이 모두 설치되어 있는지 확인합니다.
 
@@ -728,6 +758,76 @@ npx wrangler pages deploy dist --project-name="$CLOUDFLARE_PAGES_PROJECT" --bran
 - [ ] H2 통과와 별개로 PG 마이그레이션·CRUD 결과를 확인했다.
 - [ ] 테스트·배포·화면 확인을 실제 수행한 경우에만 완료로 기록했다.
 
-## 참고 기준
+## 추가 사항: /ask-matt로 다음 단계 추천받기
 
-스킬 흐름은 현재 설치된 `setup-matt-pocock-skills`, `grill-with-docs`, `grilling`, `domain-modeling`, `to-spec`, `to-tickets`, `implement`, `implement-spec`의 원문을 확인했습니다. 업데이트하면 질문과 동작이 달라질 수 있습니다. 공식 기술 문서는 각 관련 절에 링크했습니다. 본 문서는 실행된 게시판의 결과 보고서가 아니라, 따라 실행하고 결과를 비교하기 위한 튜토리얼입니다.
+어떤 스킬을 써야 할지 기억나지 않으면 현재 작업 중인 대화에서 물어보세요. `/ask-matt`는 상황에 맞는 스킬과 진행 경로를 추천하는 안내 역할입니다. 추천을 확인한 뒤 해당 스킬을 호출해 진행합니다.
+
+```text
+/ask-matt 나 이제 뭐해야 해?
+```
+
+### 예시 1: setup을 마쳤지만 요구사항이 아직 모호할 때
+
+```text
+사용자: /ask-matt 나 이제 뭐해야 해?
+
+예상 추천: 프로젝트 설정은 끝났습니다. 관리자 권한과 로그인 유지,
+삭제 정책을 먼저 정리하도록 /grill-with-docs를 추천합니다.
+```
+
+추천받은 스킬을 바로 실행합니다.
+
+```text
+/grill-with-docs
+
+추천한 대로 공지사항 게시판의 관리자 권한, 로그인 유지,
+삭제 정책부터 질문해서 정리해줘. 합의한 내용을 문서에 남겨줘.
+```
+
+### 예시 2: 인터뷰가 끝났을 때
+
+```text
+/ask-matt 나 이제 뭐해야 해?
+공지사항 게시판 요구사항을 합의했고 CONTEXT.md와 ADR도 작성했어.
+```
+
+예상 추천은 `/to-spec`입니다. 이어서 입력합니다.
+
+```text
+/to-spec
+
+방금 합의한 요구사항과 도메인 문서를 기준으로
+.scratch/notice-board/spec.md를 작성해줘.
+테스트 경계는 먼저 확인해줘.
+```
+
+### 예시 3: 티켓까지 만들었을 때
+
+```text
+/ask-matt 나 이제 뭐해야 해?
+.scratch/notice-board/spec.md와 issues/의 티켓을 작성했어.
+아직 구현한 티켓은 없어.
+```
+
+선행 작업이 없는 첫 티켓의 `/implement`를 추천받았다면 다음처럼 진행합니다.
+
+```text
+/implement
+
+.scratch/notice-board/spec.md를 읽고
+.scratch/notice-board/issues/01-read-notices.md를 구현해줘.
+수용 기준을 검증하고 실제 결과를 티켓에 기록해줘.
+```
+
+첫 티켓 완료 후 다시 `/ask-matt 나 이제 뭐해야 해?`라고 물으면 남은 티켓과 의존성을 바탕으로 다음 단계를 추천받을 수 있습니다. 이 튜토리얼 6강처럼 모든 티켓을 한 번에 지정할 수도 있고, 추천에 따라 하나씩 진행할 수도 있습니다.
+
+```mermaid
+flowchart TD
+    current["현재 진행 상태"] --> ask["/ask-matt 나 이제 뭐해야 해?"]
+    ask --> recommend["추천 스킬과 이유 확인"]
+    recommend --> run["추천받은 /스킬 호출"]
+    run --> result["결과물 · 검증 확인"]
+    result --> current
+```
+
+추천은 정해진 답이 아닙니다. 요구가 모호하면 인터뷰, 명세가 준비되면 티켓 분해, 구현 중 오류가 생기면 진단을 추천할 수 있습니다. 새 대화에서는 명세·티켓 경로와 완료한 작업을 함께 알려주면 다음 단계를 판단하기 쉽습니다.

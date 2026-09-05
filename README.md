@@ -736,6 +736,136 @@ CI는 변경할 때마다 테스트와 빌드를 자동 확인하는 과정입�
 
 ### 최초 한 번 준비할 것
 
+배포 전에 **Cloudflare CLI인 Wrangler와 Railway CLI**를 준비합니다. 아래 명령은 실습자가 실행할 안내이며, 이 문서를 읽는 것만으로 설치·로그인이 이루어지지는 않습니다.
+
+> **학교생활 비유:** CLI는 서비스에 명령을 전달하는 리모컨입니다. 설치는 리모컨을 준비하는 일, 로그인은 내 계정의 사용 권한을 확인하는 일, 프로젝트 연결은 어느 교실의 장비를 조작할지 고르는 일입니다. 로그인했다고 게시판이 자동으로 배포되는 것은 아닙니다.
+
+#### 1. Cloudflare Wrangler 설치
+
+프론트 프로젝트를 생성해 `frontend/package.json`이 생긴 뒤, **frontend 폴더의 터미널**에서 실행합니다. 프로젝트별 설치를 사용하고 버전·lockfile을 커밋해 팀과 CI가 같은 도구를 쓰게 합니다. [Wrangler 설치 안내](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
+
+```powershell
+npm install --save-dev --save-exact wrangler@latest
+npx wrangler --version
+```
+
+이미 Wrangler가 설치되어 있다면 버전부터 확인합니다. 위 설치 명령은 최초 준비용이며 매번 배포할 때 최신 버전으로 다시 설치하지 않습니다. CI에서는 `npm ci`로 기록된 버전을 설치합니다.
+
+#### 2. Cloudflare 로그인과 계정 확인
+
+같은 frontend 터미널에서 실행합니다.
+
+```powershell
+npx wrangler login
+```
+
+브라우저가 열리면 게시판을 배포할 Cloudflare 계정으로 로그인하고 CLI 접근을 허용합니다. 터미널로 돌아와 확인합니다. [Wrangler 인증 명령](https://developers.cloudflare.com/workers/wrangler/commands/general/)
+
+```powershell
+npx wrangler whoami
+npx wrangler pages project list
+```
+
+**성공 기준:** 올바른 계정과 계정 ID가 표시되고, 프로젝트 목록을 권한 오류 없이 조회할 수 있습니다. 새 계정이라 목록이 비어 있는 것은 정상입니다.
+
+Pages 프로젝트가 없다면 다음 명령으로 만들고 production branch를 `main`으로 지정합니다. 이미 만들었다면 다시 생성하지 않습니다.
+
+```powershell
+npx wrangler pages project create
+```
+
+질문에 프로젝트 이름을 입력합니다. 생성 후 이름과 계정 ID를 아래 Actions 변수에 기록합니다. 이 단계는 배포 대상 생성이며 앱 업로드는 아닙니다. [Pages Direct Upload 시작](https://developers.cloudflare.com/pages/get-started/direct-upload/)
+
+#### 3. Railway CLI 설치
+
+Node.js와 npm이 준비된 터미널에서 설치합니다. 이 실습은 사람이 직접 실행하고 CI에도 연결하기 쉬운 **CLI 경로**를 사용합니다.
+
+```powershell
+npm install -g @railway/cli
+railway --version
+```
+
+명령을 찾지 못하면 터미널을 새로 열고 다시 확인합니다. 그래도 안 되면 npm 전역 실행 파일 경로가 PATH에 포함되어 있는지 확인합니다. 실제 설치 버전을 `docs/versions.md`에 적고 CI 설치 시 그 버전을 지정합니다. [Railway CLI 설치 안내](https://docs.railway.com/cli)
+
+#### 4. Railway 로그인
+
+```powershell
+railway login
+```
+
+브라우저에서 계정 인증을 마친 뒤 확인합니다.
+
+```powershell
+railway whoami
+```
+
+브라우저를 자동으로 열 수 없는 환경에서는 다음 명령을 사용하고, 터미널이 안내한 주소와 코드를 따라 인증합니다. [Railway 로그인 안내](https://docs.railway.com/cli/login)
+
+```powershell
+railway login --browserless
+```
+
+**성공 기준:** `railway whoami`가 사용할 계정을 표시합니다. 아직 어느 프로젝트에 배포할지는 정하지 않은 상태입니다.
+
+#### 5. Railway 프로젝트와 API 서비스 연결
+
+Railway 대시보드에서 프로젝트, API용 서비스와 PostgreSQL 서비스를 먼저 준비합니다. 그 뒤 **게시판 저장소 루트**에서 실행합니다.
+
+```powershell
+railway link
+railway status
+```
+
+선택 화면에서 정확한 프로젝트·환경·API 서비스를 고릅니다. CLI 버전에 따라 서비스 선택이 별도라면 `railway service`로 API 서비스를 선택합니다. `railway status`로 연결 대상을 다시 확인합니다. **PostgreSQL 서비스가 아니라 API 서비스에 백엔드 코드를 배포합니다.** [프로젝트 연결 안내](https://docs.railway.com/cli/link)
+
+이 문서에서는 저장소 루트를 연결하고 API 서비스의 소스 루트를 `backend/`로 구성합니다. 실제 업로드 위치와 Railway의 Root Directory·Dockerfile 경로가 같은 기준을 사용하는지 확인합니다. 같은 `backend/` 경로를 이중으로 적용하지 않습니다.
+
+> **학교생활 비유:** 같은 학교에도 방송실과 도서관이 있습니다. 내 계정으로 들어갔더라도 ‘방송실 장비에 보낼 파일’을 도서관 장비에 보내면 안 됩니다. `whoami`는 사람 확인, `status`는 작업 대상 확인입니다.
+
+#### 6. 내 PC 로그인과 GitHub Actions 인증은 별개
+
+| 실행 장소 | Cloudflare | Railway |
+| --- | --- | --- |
+| 내 PC | `wrangler login`으로 로그인 | `railway login`으로 로그인 |
+| GitHub Actions | `CLOUDFLARE_API_TOKEN`과 계정 ID | 프로젝트 범위 `RAILWAY_TOKEN` |
+
+내 PC에서 로그인했어도 GitHub Actions의 실행 컴퓨터에는 그 로그인이 전달되지 않습니다. Actions에서 브라우저 로그인 명령을 실행하지 말고 토큰을 사용합니다.
+
+Cloudflare에서는 해당 계정의 **Cloudflare Pages 편집 권한**을 가진 API 토큰을 만들고, Railway에서는 배포 대상 프로젝트·환경의 토큰을 만듭니다. GitHub 저장소의 **Settings → Secrets and variables → Actions**에서 등록합니다. production 환경 Secret을 사용한다면 **Settings → Environments → production**에 등록하고 배포 job이 그 환경을 참조하게 합니다.
+
+GitHub CLI로 production 환경 Secret을 입력할 수도 있습니다. 값을 명령어에 직접 넣지 않고 입력 요청에 붙여 넣습니다.
+
+```powershell
+gh secret set CLOUDFLARE_API_TOKEN --env production
+gh secret set RAILWAY_TOKEN --env production
+```
+
+토큰 이름이 등록됐다는 사실만으로 권한이 올바르다고 확정하지 않습니다. 실제 배포 결과까지 확인합니다. 계정 ID·프로젝트명·서비스 ID 등은 아래 변수 표에 따라 설정합니다.
+
+> **출입증 비유:** 내 학생증을 집에 두고 왔다고 학교의 자동 배송 로봇이 그 학생증을 쓸 수는 없습니다. 자동화에는 별도 출입증을 주되, 필요한 곳만 출입할 수 있게 하는 것입니다.
+
+#### Railway MCP도 설치해야 하나요?
+
+이 튜토리얼은 **Railway CLI로 진행하므로 MCP 설치는 필수가 아닙니다.** MCP는 에이전트가 외부 서비스 도구를 호출할 수 있게 연결하는 방식이고, CLI는 터미널 명령으로 조작하는 방식입니다. 이번 실습에서는 CLI 설치·인증·연결을 먼저 완료하면 됩니다.
+
+#### 설치·연결 완료 체크
+
+- [ ] `npx wrangler --version`과 `railway --version`이 실행된다.
+- [ ] `npx wrangler whoami`와 `railway whoami`에서 올바른 계정이 보인다.
+- [ ] Pages 프로젝트 이름과 production branch가 확인된다.
+- [ ] `railway status`의 프로젝트·환경·서비스가 API 배포 대상과 일치한다.
+- [ ] GitHub Actions용 토큰과 대상 변수를 별도로 등록했다.
+
+```mermaid
+flowchart LR
+    install["CLI 설치"] --> login["내 PC 로그인"]
+    login --> account["계정 확인"] --> target["프로젝트·서비스 연결"]
+    target --> tokens["Actions용 토큰·변수 등록"]
+    tokens --> deploy["검증 후 배포"] --> verify["공개 서비스 동작 확인"]
+```
+
+#### 외부 서비스 준비 목록
+
 | 위치 | 설정 |
 | --- | --- |
 | GitHub | 저장소, main 브랜치, Actions 사용, production 환경 |

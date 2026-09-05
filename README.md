@@ -1724,3 +1724,5 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 [2nd-matt-user-guide 공개 저장소](https://github.com/jhs512/2nd-matt-user-guide)에 빈 프로젝트부터 수행한 코드, 결정 문서, 티켓, 테스트와 실제 화면을 남겼습니다. [실행 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/execution-log.md)에서 실패한 단계와 수정 이유를 확인할 수 있습니다.
 
 Spring Boot 4.1.1, Kotlin 2.3.21, Gradle 9.7.1, JDK25로 실행했습니다. 기존 Vite에 shadcn을 추가하는 설정, 실제 브라우저 CORS 확인, 시간 정밀도, 배포 한도 확인을 이 문서에 보강했습니다. **로컬 H2·브라우저·로컬 PostgreSQL 검증과 운영 배포를 구분합니다. Railway 운영 배포는 요금제 리소스 한도로 아직 완료되지 않았습니다.**
+
+실행 프로젝트의 [GitHub Actions 검사](https://github.com/jhs512/2nd-matt-user-guide/actions/runs/33978349671)는 H2 HTTP·프론트 화면·실제 Chromium·PostgreSQL CRUD까지 통과했습니다. 운영 배포 job은 설정 미비로 건너뛰었습니다. 검사 성공을 운영 배포 성공으로 읽지 않습니다.

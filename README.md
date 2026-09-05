@@ -244,6 +244,10 @@ flowchart LR
 
 ## 2강. 하네스 세팅 — /setup-matt-pocock-skills
 
+**실제 결과 보기 · [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001):** 작업 규칙이 없는 상태에서 [AGENTS.md](https://github.com/jhs512/2nd-matt-user-guide/blob/001/AGENTS.md)와 [에이전트용 안내 문서](https://github.com/jhs512/2nd-matt-user-guide/tree/001/docs/agents)가 생겼습니다. 무엇을 먼저 읽고 어디에 작업을 기록할지 확인해 보세요.
+
+첫 커밋 `001`에는 2강부터 5강까지의 문서가 함께 저장되어 있습니다. 스킬 하나마다 따로 커밋된 기록은 아니므로, 각 강에서는 그 강에 해당하는 파일을 연결합니다.
+
 **새 프로젝트를 시작할 때 딱 한 번 실행하면 됩니다.** 같은 프로젝트에서 새 기능을 만들거나 대화를 새로 열 때마다 반복할 필요는 없습니다. 다른 프로젝트를 시작하면 그 프로젝트에서 한 번 설정합니다. 나중에 이슈 관리 방식을 바꾸고 싶다면 설정 문서를 수정하거나 이 스킬을 다시 실행할 수 있습니다.
 
 여기서 ‘하네스 세팅’은 **코딩 에이전트가 이 프로젝트에서 일할 규칙을 설정한다**는 뜻입니다. 프로그램 설치나 계정 로그인이 아니라, 프로젝트 지침과 이슈·문서 관리 규칙을 파일로 남기는 작업입니다.
@@ -359,6 +363,8 @@ flowchart LR
 **완료 확인:** 설정 문서 세 개와 프로젝트 지침의 참조가 일치하는지 확인합니다. `CONTEXT.md` 자체는 의미 있는 용어가 정리되는 다음 강에서 생성합니다.
 
 ## 3강. /grill-with-docs — 원하는 기능을 질문과 답변으로 분명하게 정하기
+
+**실제 결과 보기 · [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001):** 질문과 답변으로 정한 내용을 [CONTEXT.md](https://github.com/jhs512/2nd-matt-user-guide/blob/001/CONTEXT.md)와 [ADR 결정 기록](https://github.com/jhs512/2nd-matt-user-guide/tree/001/docs/adr)에 남겼습니다. 막연한 “공지 게시판”이 어떤 용어와 규칙을 가진 제품으로 구체화됐는지 확인해 보세요.
 
 이번에 추가한 핵심 단계입니다. ‘시큐리티를 쓴다’는 말만으로는 누가 무엇을 할 수 있는지, 로그인은 얼마나 유지되는지 결정되지 않습니다. 구현 전에 실제 사용 상황을 질문하고 답을 문서로 남깁니다.
 
@@ -564,6 +570,8 @@ flowchart LR
 
 ## 4강. /to-spec — 함께 정한 기능과 완성 조건을 문서로 남기기
 
+**실제 결과 보기 · [001의 명세](https://github.com/jhs512/2nd-matt-user-guide/blob/001/.scratch/notice-board/spec.md):** 앞에서 정한 규칙이 구현할 기능과 확인 조건으로 정리된 파일입니다. 아래 입력 예시와 실제 명세를 나란히 읽어 보세요.
+
 이렇게 무엇을 만들고 어떤 조건을 만족해야 하는지 적은 문서를 **명세**라고 부릅니다.
 
 `/grill-with-docs`에서 결정한 내용을 `/to-spec`으로 모아 정리합니다. 이 단계는 새 요구사항 인터뷰보다 합의된 내용을 빠짐없이 옮기는 데 집중합니다. 설치된 스킬은 테스트에서 입력과 결과를 확인할 위치를 사용자에게 확인하는 단계도 포함합니다.
@@ -683,6 +691,8 @@ flowchart LR
 
 ## 5강. /to-tickets — 하나씩 만들고 직접 실행해볼 수 있는 작은 작업으로 나누기
 
+**실제 결과 보기 · [001의 티켓 5개](https://github.com/jhs512/2nd-matt-user-guide/tree/001/.scratch/notice-board/issues):** 하나의 명세가 조회, 로그인·작성, 수정·삭제, CI, 운영 배포 작업으로 나뉩니다. [첫 번째 티켓](https://github.com/jhs512/2nd-matt-user-guide/blob/001/.scratch/notice-board/issues/01-read-notices.md)을 열면 실제 작업 크기를 볼 수 있습니다.
+
 티켓은 이번에 끝낼 작은 작업과 확인 방법을 적은 카드입니다. 먼저 끝내야 할 티켓은 해당 작업을 시작하기 전에 끝나야 하는 일입니다.
 
 > **학교 축제 비유:** ‘매점 완성’은 너무 큽니다. ‘손님이 음료를 고르고 돈을 내면 음료를 받는다’처럼 실제로 해보고 결과를 확인할 수 있는 작은 일로 나눕니다. ‘예쁜 간판만 만들기’처럼 한 부분만 끝내는 것보다 실제 사용 경로를 하나씩 완성하는 방식입니다. 포스터를 붙이려면 먼저 문구가 정해져야 하는 것처럼 작업에도 선후 관계가 있습니다.
@@ -773,6 +783,10 @@ flowchart LR
 **완료 확인:** 모든 명세 조건이 티켓에 연결되어 있는지 확인합니다. 서로 상대 작업이 끝나기만 기다리는 순서가 되어서는 안 되고, 배포 티켓에는 필요한 계정·변수·검증 방법까지 있어야 합니다.
 
 ## 6강. /implement — 모든 티켓 구현하고 배포 결과 확인하기
+
+**실제 변화 보기 · [001 → 002 비교](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002):** 문서만 있던 저장소에 백엔드·프론트·테스트·실행 스크립트가 추가됩니다. [002의 전체 코드](https://github.com/jhs512/2nd-matt-user-guide/tree/002)와 [당시 화면](https://github.com/jhs512/2nd-matt-user-guide/blob/002/docs/evidence/admin-detail.png)을 확인해 보세요.
+
+`002`는 첫 구현이고 수정이 끝난 최종본은 아닙니다. 실제 실행에서 발견한 문제는 [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003), 화면·회귀 검사는 [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004)에서 보완했습니다. 명령 한 번이면 항상 완성되는 것이 아니라 **구현 → 실행 → 수정 → 재검사**를 거친 기록입니다.
 
 `/implement-all`이라는 별도 스킬 대신 `/implement`에 **모든 티켓**을 지정합니다. `/implement-spec`은 여러 에이전트가 각자의 작업 폴더(worktree)에서 나눠 만든 뒤, 변경을 한 브랜치로 모아 검토 요청(PR)을 만드는 방식입니다. 이 실습은 `/implement`로 진행합니다.
 
@@ -949,6 +963,10 @@ Spring Boot는 `.env` 파일을 만들었다고 자동으로 읽지 않습니다
 | 로컬 백엔드 재시작 | H2 파일의 공지 유지 |
 
 ## 6강의 배포 실습 — GitHub Actions가 전체 흐름을 제어하기
+
+**실제 변화 보기:** [005의 CI 성공 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/005/docs/execution-log.md) → [005 → 006의 Railway 자동배포 설정](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) → [006 → 007의 H2 메모리 테스트 수정](https://github.com/jhs512/2nd-matt-user-guide/compare/006...007) → [008의 공개 배포 결과](https://github.com/jhs512/2nd-matt-user-guide/blob/008/docs/production-status.md).
+
+배포에는 아래 CLI 명령과 외부 서비스 설정이 함께 필요했습니다. `008` 시점에도 Pages 자동배포용 토큰은 미설정이며, Pages의 첫 공개 업로드와 Railway 자동배포까지만 완료했습니다.
 
 CI는 변경할 때마다 테스트와 빌드를 자동 확인하는 과정입니다. 이 실습의 CD는 통과한 변경을 실제 서비스에 배포하는 과정입니다. PR은 변경을 합치기 전에 검토하는 요청이고, main은 여기서 운영 배포의 기준으로 삼은 브랜치입니다.
 
@@ -1776,6 +1794,26 @@ Windows를 사용하니 Bash 실행 환경이 필요한지도 먼저 확인해�
 
 
 ## 이 매뉴얼을 실제로 실행해 본 결과
+
+### 001부터 008까지, 실제로 무엇이 바뀌었나요?
+
+**‘그때 파일’**은 해당 시점의 전체 저장소이고, **‘바뀐 부분’**은 직전 태그와 비교한 수정 내용입니다. GitHub 비교 화면에서 초록색은 추가, 빨간색은 삭제입니다. 파일 이름을 눌러 내용을 펼쳐 보세요. 태그는 이후 main이 바뀌어도 이 실습 시점을 가리킵니다.
+
+> **쉬운 비유:** 태그는 작업 중간에 찍어 둔 사진 번호입니다. `001`은 설계 문서가 놓인 책상, `002`는 프로그램을 처음 만든 책상입니다. 비교 링크는 두 사진 사이에 무엇이 추가되고 바뀌었는지 보여 줍니다.
+
+| 태그 | 관련 단계 | 눈으로 확인할 변화 | 그때 파일 | 바뀐 부분 |
+| --- | --- | --- | --- | --- |
+| 001 | `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` | 작업 규칙·용어·결정·명세·티켓을 함께 저장 | [001](https://github.com/jhs512/2nd-matt-user-guide/tree/001) | [첫 커밋에서 추가한 문서](https://github.com/jhs512/2nd-matt-user-guide/commit/094522c8af38b3c2284929f5366b9304a8b1d55b) |
+| 002 | `/implement` 첫 구현 | 게시판 코드·테스트·실행 스크립트·CI 파일 추가 | [002](https://github.com/jhs512/2nd-matt-user-guide/tree/002) | [001 → 002](https://github.com/jhs512/2nd-matt-user-guide/compare/001...002) |
+| 003 | 구현 후 실제 실행·수정 | 시간 정밀도·화면·CI 문제 수정, 실행 기록 추가 | [003](https://github.com/jhs512/2nd-matt-user-guide/tree/003) | [002 → 003](https://github.com/jhs512/2nd-matt-user-guide/compare/002...003) |
+| 004 | 화면 재검사 | 화면 동작과 테스트 보강, 티켓 진행 상태 기록 | [004](https://github.com/jhs512/2nd-matt-user-guide/tree/004) | [003 → 004](https://github.com/jhs512/2nd-matt-user-guide/compare/003...004) |
+| 005 | CI 결과 확인 | CI 성공과 당시 Railway 요금제 제한을 기록 | [005](https://github.com/jhs512/2nd-matt-user-guide/tree/005) | [004 → 005](https://github.com/jhs512/2nd-matt-user-guide/compare/004...005) |
+| 006 | Railway 자동배포 연결 | Railway 배포 활성화, Pages 업로드 조건 분리 | [006](https://github.com/jhs512/2nd-matt-user-guide/tree/006) | [005 → 006](https://github.com/jhs512/2nd-matt-user-guide/compare/005...006) |
+| 007 | 매뉴얼과 구현 대조 | CI 브라우저 테스트의 H2 파일 DB를 메모리 DB로 변경 | [007](https://github.com/jhs512/2nd-matt-user-guide/tree/007) | [006 → 007](https://github.com/jhs512/2nd-matt-user-guide/compare/006...007) |
+| 008 | 운영 결과 정리 | 공개 주소·화면 증거·완료한 작업과 Pages 자동배포의 남은 설정 기록 | [008](https://github.com/jhs512/2nd-matt-user-guide/tree/008) | [007 → 008](https://github.com/jhs512/2nd-matt-user-guide/compare/007...008) |
+
+이 번호는 **실제로 존재하는 8개 커밋의 시간 순서**입니다. 설치는 PC에 적용되는 작업이어서 별도 코드 커밋이 없고, 2–5강은 `001`에 묶여 있습니다. 외부 서비스의 로그인·요금제·토큰 설정 자체는 Git에 저장되지 않습니다. 각 태그를 명령 하나의 자동 실행 결과로 해석하지 말고, 해당 단계에서 저장한 결과로 읽어 주세요.
+
 
 [2nd-matt-user-guide 공개 저장소](https://github.com/jhs512/2nd-matt-user-guide)에 빈 프로젝트부터 수행한 코드, 결정 문서, 티켓, 테스트와 실제 화면을 남겼습니다. [실행 기록](https://github.com/jhs512/2nd-matt-user-guide/blob/main/docs/execution-log.md)에서 실패한 단계와 수정 이유를 확인할 수 있습니다.
 

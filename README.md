@@ -886,7 +886,7 @@ flowchart TD
 
 **상황:** “반 친구들이 축제 공지를 볼 사이트가 필요해. 선생님만 공지를 올리면 좋겠어.” 아직 화면도 코드도 없습니다.
 
-**순서:** `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` → `/implement`
+**순서:** `/setup-matt-pocock-skills` → `/grill-with-docs` → `/to-spec` → `/to-tickets` → `/implement` → `/grill-with-docs` ...
 
 ```mermaid
 flowchart LR

@@ -358,13 +358,6 @@ flowchart LR
 backend/와 frontend/를 둘 예정이지만 도메인은 공지사항 하나이므로
 단일 CONTEXT.md와 docs/adr/를 사용하는 구성을 원해.
 AGENTS.md와 CLAUDE.md가 모두 없다면 AGENTS.md를 생성해줘.
-초안을 보여줘.
-```
-
-초안을 확인한 뒤 답합니다.
-
-```text
-초안대로 작성해줘.
 ```
 
 ### 예상 결과물

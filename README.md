@@ -1496,22 +1496,6 @@ Wayfinder 다음에 `/grill-with-docs`를 반드시 다시 실행할 필요는 �
 
 **끝나면:** 설정값이 필요한 곳에 들어가고 배포가 확인됩니다. 안내 파일만 생성됐다면 아직 배포 완료가 아닙니다.
 
-### 설명을 원문과 대조한 결과
-
-2026-09-06에 [Matt 스킬 원본의 `3cca18b` 커밋](https://github.com/mattpocock/skills/tree/3cca18b368ae95cdbdebbff572ccafa662551015/skills)의 `SKILL.md` 37개를 설치본과 대조해 모두 일치함을 확인했습니다. 표에는 스킬 폴더 기준 경로를 적었습니다. Wayfinder 설명은 위 영상의 자동 자막과 스킬 원문을 함께 확인했으며, 상세 실무 시나리오는 활용 예시입니다.
-
-| 확인한 원문 | 확인 결과와 이 문서의 적용 |
-| --- | --- |
-| `grill-with-docs/SKILL.md`, `grilling/SKILL.md` | 전자는 `grilling`과 `domain-modeling`을 호출하고, 후자는 질문의 선행 조건을 고려합니다. 따라서 질문의 순서를 정하는 기능이 Wayfinder만의 차이는 아닙니다. |
-| `domain-modeling/SKILL.md` | `CONTEXT.md`는 용어집이며 모든 결정의 저장소가 아닙니다. ADR은 되돌리기 어렵고, 맥락 없이는 이해하기 어렵고, 실제 대안 간 선택이 있었을 때 제안합니다. |
-| `wayfinder/SKILL.md`의 스킬 호출 지시 | 조사에는 `research`, 시제품에는 `prototype`, 설계 논의에는 `grilling`과 `domain-modeling`을 사용합니다. 목표를 정리한 뒤 조사·실험·논의를 나눠 진행합니다. |
-| `wayfinder/SKILL.md`의 계획 범위 | 기본은 구현에 앞선 계획입니다. 시제품을 보고 판단하고 설계를 선택하는 과정에는 사용자가 참여합니다. |
-| `implement/SKILL.md`, `to-spec/SKILL.md` | 구현은 명세·티켓을 입력으로 하며, 명세화는 기존 논의의 종합입니다. 미결정을 명세 작성 단계에서 자동 해결한다고 가정하지 않습니다. |
-| `improve-codebase-architecture/SKILL.md` | 후보 조사·시각적 보고·후보 선택 후 grilling까지 포함합니다. 후속 `/grill-with-docs`는 필요한 보완으로 설명했습니다. |
-| `prototype/SKILL.md`, `triage/SKILL.md` | 시제품은 설계 질문에 답하는 실험이고, triage는 요청을 분류·검증·보완하는 흐름입니다. 실험·분류 결과를 제품 구현 완료와 구분했습니다. |
-
-대화와 기록으로 정리할 수 있으면 `/grill-with-docs`, 여러 조사·실험 결과를 반영해야 하는 큰 기획이면 `/wayfinder`를 선택합니다. 작은 조사나 시제품 하나만 필요하면 해당 스킬을 직접 사용해도 됩니다. 위 실무 사례의 데이터 모델·정책·서비스 제약은 실제 프로젝트에서 따로 확인해야 합니다.
-
 ### 열 가지 중에서도 못 고르겠다면
 
 아래 네 줄이면 시작할 수 있습니다. 대괄호 부분을 지금 상황으로 바꾸세요.

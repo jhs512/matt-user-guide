@@ -387,7 +387,6 @@ flowchart LR
 ```text
 /setup-matt-pocock-skills
 
-고등학교 공지사항 게시판 프로젝트.
 GITHUB 저장소 생성 후 연결해줘.
 이슈와 명세는 로컬 Markdown.
 triage는 기본 라벨을 사용.

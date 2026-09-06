@@ -334,7 +334,7 @@ flowchart LR
 
 **실제 결과 보기 · [002](https://github.com/jhs512/matt-user-guide-examples/commit/002):** 작업 규칙이 없는 상태에서 [AGENTS.md](https://github.com/jhs512/matt-user-guide-examples/blob/002/AGENTS.md)와 [에이전트용 안내 문서](https://github.com/jhs512/matt-user-guide-examples/tree/002/docs/agents)가 생겼습니다. 무엇을 먼저 읽고 어디에 작업을 기록할지 확인해 보세요.
 
-강별 링크의 `002`~`006`은 수업 결과를 가리키는 태그입니다. **2026-09-06 확인:** 새 예제 주소 `jhs512/matt-user-guide-examples`는 현재 조회 환경에서 `Repository not found`를 반환해 태그와 파일 내용을 재확인하지 못했습니다. 아래 강별 결과 설명은 기존 예제 기준이며, 이번에 추가한 첫 커밋의 `CLAUDE.md` 조건까지 새 예제에 반영됐는지는 별도 확인이 필요합니다.
+강별 링크의 `002`~`006`은 수업 결과를 가리키는 태그입니다. **2026-09-06 확인:** GitHub 저장소 자체를 `jhs512/matt-user-guide-examples`로 이름 변경했고, 새 주소의 접근과 `002`~`006` 태그를 확인했습니다. 아래 강별 결과 설명은 기존 예제 기준이며, 이번에 추가한 첫 커밋의 `CLAUDE.md` 조건까지 예제 이력에 반영됐는지는 별도 확인이 필요합니다.
 
 > **최초 1회만 호출하세요.** `/setup-matt-pocock-skills`는 프로젝트의 첫 작업 규칙을 만드는 스킬입니다. **이 프로젝트에서는 처음 단 한 번만 호출하고, 이후 작업에서는 반복하지 않습니다.**
 

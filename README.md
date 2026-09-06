@@ -522,27 +522,50 @@ flowchart LR
 | 로그아웃 | 현재 화면에서 토큰 제거; 이미 발급된 토큰은 만료 전까지 유효 |
 | 운영 연결 | 허용된 프론트 Origin만 CORS 허용; Authorization 헤더 허용 |
 
-### 예상 결과물: 용어집과 결정 기록
+### 실제 결과물: 용어집과 결정 기록
+
+실습 저장소의 **3강 태그 `003`**, [커밋 `fc147a7`](https://github.com/jhs512/matt-user-guide-examples/commit/fc147a7fbb29ec5e64c331ead18c760475e5f67d) (`docs: define notice board requirements and decisions`)에서 아래 세 파일이 추가됐습니다. 다음 내용은 해당 커밋의 원문 전체입니다.
 
 ```text
-새로 생기는 문서
+이 커밋에서 추가된 문서
 ├── CONTEXT.md
 └── docs/adr/
     ├── 0001-admin-authentication.md
     └── 0002-ci-controlled-deployment.md
 ```
 
-`CONTEXT.md` 내용 예시:
+**[CONTEXT.md](https://github.com/jhs512/matt-user-guide-examples/blob/fc147a7fbb29ec5e64c331ead18c760475e5f67d/CONTEXT.md) 원문:**
 
 ```markdown
-# Domain glossary
+# 공지사항
 
-- 공지(Notice): 관리자가 게시하며 방문자가 읽을 수 있는 안내문.
-- 방문자(Visitor): 로그인 없이 공지를 읽는 사람.
-- 관리자(Administrator): 공지를 등록·수정·삭제할 권한이 있는 사람.
+방문자가 안내를 읽고 관리자가 게시하는 공간이다.
+
+## Language
+
+**공지(Notice)**: 관리자가 등록하면 즉시 공개되는 제목과 일반 텍스트 본문을 가진 안내문.
+**방문자(Visitor)**: 로그인 없이 공지를 읽는 사람.
+**관리자(Administrator)**: 공지를 등록·수정·삭제하는 담당자.
+**삭제(Delete)**: 공지를 영구 제거하는 동작. 숨김이나 휴지통을 뜻하지 않는다.
 ```
 
-용어집에는 Kotlin 버전·DB URL·API 구현 방법을 섞지 않습니다. ADR은 모든 기술 선택마다 만들지 않고, 대안·이유·후속 비용을 기록할 가치가 있는 결정만 남깁니다.
+**[docs/adr/0001-admin-authentication.md](https://github.com/jhs512/matt-user-guide-examples/blob/fc147a7fbb29ec5e64c331ead18c760475e5f67d/docs/adr/0001-admin-authentication.md) 원문:**
+
+```markdown
+# 메모리에 보관하는 짧은 Bearer 토큰
+
+관리자 한 명과 공개 조회가 필요한 실습이다. 서로 다른 서비스 도메인을 사용하므로 쿠키 세션 대신 30분 access JWT를 프론트 메모리에 보관한다. 새로고침하면 재로그인하며 로그아웃은 브라우저 토큰 제거일 뿐 서버의 즉시 폐기가 아니다. 관리자명과 BCrypt 해시 및 충분히 긴 서명 키는 운영 환경에 주입한다. Refresh token, 계정 관리, 외부 인증 제공자는 범위 밖이다.
+```
+
+**[docs/adr/0002-ci-controlled-deployment.md](https://github.com/jhs512/matt-user-guide-examples/blob/fc147a7fbb29ec5e64c331ead18c760475e5f67d/docs/adr/0002-ci-controlled-deployment.md) 원문:**
+
+```markdown
+# 검증한 커밋만 배포
+
+GitHub Actions에서 H2 HTTP 테스트, 화면 테스트, E2E를 통과한 main 커밋을 Railway와 Pages에 배포한다. 서비스 Git 자동배포는 사용하지 않아 검증을 건너뛰는 경로를 피한다. 두 서비스는 원자적 배포가 아니므로 API의 기존 호출을 유지하고 배포 ID와 커밋을 별도로 확인한다. H2 통과를 PG 호환성 증거로 사용하지 않는다.
+```
+
+이 기록은 당시 합의한 용어와 설계 결정입니다. 배포 성공을 증명하는 실행 결과는 아닙니다.
 
 ### CONTEXT.md — 우리 팀이 같은 뜻으로 말하기 위한 작은 사전
 

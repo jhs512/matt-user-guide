@@ -132,7 +132,7 @@ npx --yes skills@latest add mattpocock/skills --global --skill "*" --agent codex
 
 | 문서에 보이는 내용 | 입력하거나 확인할 곳 | 예 |
 | --- | --- | --- |
-| `/grill-with-docs`처럼 스킬로 시작하는 요청 | 프로젝트를 연 코딩 에이전트(CLAUDE CODE OR CODEX)의 **대화창** | 질문에 답하며 요구사항 정하기 |
+| `/grill-with-docs`처럼 스킬로 시작하는 요청 | 프로젝트를 연 코딩 에이전트의 **대화창** | 질문에 답하며 요구사항 정하기 |
 | `git`, `npm`, `npx`, `java`로 시작하는 실행 명령 | **macOS 터미널 / Windows PowerShell** | 설치, 앱 실행, GitHub에 코드 올리기 |
 
 ### 어떻게 공부해야 하나요?

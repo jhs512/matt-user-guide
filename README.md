@@ -504,7 +504,6 @@ flowchart LR
 프론트(frontend/)는 Cloudflare Pages로 배포하고 GitHub Actions가 CI/CD를 담당해.
 백엔드 폴더는 backend/, 프론트엔드 폴더는 frontend/로 생각하고 있어.
 같은 저장소에 둘 때 각 폴더의 역할과 실행·배포 경로를 질문으로 확인하고 합의해줘.
-도메인은 고등학교 공지사항 하나이므로 루트의 CONTEXT.md와 docs/adr/를 공유하고 싶어.
 
 권한, 인증 유지, 입력 제한, 오류,
 목록을 여러 페이지로 나누고 이동하는 방법, DB 전환, 자동배포 완료 기준을 질문해서 구체적으로 정해줘.
